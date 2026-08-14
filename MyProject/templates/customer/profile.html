@@ -55,7 +55,7 @@
 <div class="card profile-card text-center pb-4 h-100 overflow-hidden">
 <div class="profile-header-banner"></div>
 <div class="profile-pic-wrapper">
-<img src="/{{userinfo.profile_pic}}" class="profile-pic" alt="Profile Picture">
+<img src="{{ userinfo.profile_pic.url }}" class="profile-pic" alt="Profile Picture">
 </div>
 <h3 class="fw-bold mb-1 text-dark">{{userinfo.name}}</h3>
 <p class="text-muted small px-3">{{userinfo.email}}</p>

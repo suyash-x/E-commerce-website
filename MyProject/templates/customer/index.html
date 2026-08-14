@@ -55,7 +55,7 @@
 <div class="row g-4 justify-content-center">
 <!-- My Profile Card -->
 <div class="col-lg-3 col-md-6">
-<a href="/customer/profile" class="text-decoration-none">
+<a href="{% url 'customer:profile' %}" class="text-decoration-none">
 <div class="card p-4 text-center dashboard-card h-100">
 <div class="d-flex justify-content-center">
 <div class="dash-icon"><i class="fa-solid fa-user"></i></div>
@@ -67,7 +67,7 @@
 </div>
 <!-- My Orders Card -->
 <div class="col-lg-3 col-md-6">
-<a href="/customer/myorder" class="text-decoration-none">
+<a href="{% url 'customer:myorder' %}" class="text-decoration-none">
 <div class="card p-4 text-center dashboard-card h-100">
 <div class="d-flex justify-content-center">
 <div class="dash-icon"><i class="fa-solid fa-box-open"></i></div>
@@ -79,7 +79,7 @@
 </div>
 <!-- Change Password Card -->
 <div class="col-lg-3 col-md-6">
-<a href="/customer/profile" class="text-decoration-none">
+<a href="{% url 'customer:profile' %}" class="text-decoration-none">
 <div class="card p-4 text-center dashboard-card h-100">
 <div class="d-flex justify-content-center">
 <div class="dash-icon"><i class="fa-solid fa-key"></i></div>
@@ -91,7 +91,7 @@
 </div>
 <!-- Logout Card -->
 <div class="col-lg-3 col-md-6">
-<a href="/customer/logout/" class="text-decoration-none">
+<a href="{% url 'customer:logout' %}" class="text-decoration-none">
 <div class="card p-4 text-center dashboard-card h-100">
 <div class="d-flex justify-content-center">
 <div class="dash-icon" style="color: #EF4444;"><i class="fa-solid fa-power-off"></i></div>

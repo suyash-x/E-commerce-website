@@ -134,7 +134,7 @@ def login(request):
         if x:
             request.session["email"]=str(x.email)
             request.session["uname"]=str(x.name)
-            request.session["upic"]=str(x.profile_pic)
+            request.session["upic"]=x.profile_pic.url
             ccount=tbl_cart.objects.filter(userid=Email).count()
             request.session["cartitem"]=ccount
             messages.success(request, 'Logged in successfully.')

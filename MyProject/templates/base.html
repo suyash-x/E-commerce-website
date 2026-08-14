@@ -415,7 +415,7 @@ body.bg-color2 {
     color: var(--accent-coral);
     background-color: #FFF5F5;
   }
-}
+
 </style>
 <title>Zeva - Gen S E-Commerce</title>
 </head>
@@ -490,7 +490,7 @@ body.bg-color2 {
 
             {% if request.session.email %}
             <a href="{% url 'customer:profile' %}" class="d-flex align-items-center gap-2 text-decoration-none">
-                <img src="/media/{{request.session.upic}}" class="rounded-circle border border-2 border-warning" style="height:42px; width: 42px; object-fit: cover;" alt="">
+                <img src="{{request.session.upic}}" class="rounded-circle border border-2 border-warning" style="height:42px; width: 42px; object-fit: cover;" alt="">
                 <b class="d-none d-xl-inline text-dark small fw-bold">{{request.session.uname}}</b>
             </a>
             {% else %}

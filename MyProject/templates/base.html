@@ -439,36 +439,36 @@ body.bg-color2 {
         <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
             <ul class="navbar-nav align-items-lg-center gap-lg-2">
                 <li class="nav-item">
-                    <a class="nav-link {% if request.path == '/user/index/' %}active{% endif %}" aria-current="page" href="/user/index/">Home</a>
+                    <a class="nav-link {% if request.resolver_match.url_name == 'index' %}active{% endif %}" aria-current="page" href="{% url 'user:index' %}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {% if request.path == '/user/about/' %}active{% endif %}" href="/user/about/">About</a>
+                    <a class="nav-link {% if request.resolver_match.url_name == 'about' %}active{% endif %}" href="{% url 'user:about' %}">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {% if request.path == '/user/products/' %}active{% endif %}" href="/user/products/">Products</a>
+                    <a class="nav-link {% if request.resolver_match.url_name == 'products' %}active{% endif %}" href="{% url 'user:products' %}">Products</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {% if request.path == '/user/gallery/' %}active{% endif %}" href="/user/gallery/">Gallery</a>
+                    <a class="nav-link {% if request.resolver_match.url_name == 'gallery' %}active{% endif %}" href="{% url 'user:gallery' %}">Gallery</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {% if request.path == '/user/register/' %}active{% endif %}" href="/user/register/">Register</a>
+                    <a class="nav-link {% if request.resolver_match.url_name == 'register' %}active{% endif %}" href="{% url 'user:register' %}">Register</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {% if request.path == '/user/contact/' %}active{% endif %}" href="/user/contact/">Contact</a>
+                    <a class="nav-link {% if request.resolver_match.url_name == 'contact' %}active{% endif %}" href="{% url 'user:contact' %}">Contact</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {% if request.path == '/user/team/' %}active{% endif %}" href="/user/team/">Team</a>
+                    <a class="nav-link {% if request.resolver_match.url_name == 'team' %}active{% endif %}" href="{% url 'user:team' %}">Team</a>
                 </li>
                 {% if request.session.email %}
                 <li class="nav-item">
-                    <a class="nav-link" href="/customer/index/">Dashboard</a>
+                    <a class="nav-link" href="{% url 'customer:index' %}">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-danger" href="/customer/logout/">Logout</a>
+                    <a class="nav-link text-danger" href="{% url 'customer:logout' %}">Logout</a>
                 </li>
                 {% else %}
                 <li class="nav-item">
-                    <a class="nav-link" href="/user/login/">Login</a>
+                    <a class="nav-link" href="{% url 'user:login' %}">Login</a>
                 </li>
                 {% endif %}
             </ul>
@@ -476,7 +476,7 @@ body.bg-color2 {
 
         <!-- Right Side: Cart & User Profile -->
         <div class="d-flex align-items-center gap-3">
-            <a href="/user/cart/" class="btn btn-genz btn-yellow d-flex align-items-center gap-2 text-decoration-none">
+            <a href="{% url 'user:cart' %}" class="btn btn-genz btn-yellow d-flex align-items-center gap-2 text-decoration-none">
                 <i class="fa-solid fa-cart-arrow-down"></i>
                 <span>Cart</span>
                 <span class="badge badge-cart" id="cart-count-badge">
@@ -489,12 +489,12 @@ body.bg-color2 {
             </a>
 
             {% if request.session.email %}
-            <a href="/customer/profile/" class="d-flex align-items-center gap-2 text-decoration-none">
+            <a href="{% url 'customer:profile' %}" class="d-flex align-items-center gap-2 text-decoration-none">
                 <img src="/{{request.session.upic}}" class="rounded-circle border border-2 border-warning" style="height:42px; width: 42px; object-fit: cover;" alt="">
                 <b class="d-none d-xl-inline text-dark small fw-bold">{{request.session.uname}}</b>
             </a>
             {% else %}
-            <a href="/user/login/" class="btn btn-genz btn-coral d-none d-sm-inline-flex align-items-center gap-1">
+            <a href="{% url 'user:login' %}" class="btn btn-genz btn-coral d-none d-sm-inline-flex align-items-center gap-1">
                 <i class="fa-solid fa-user"></i> Sign In
             </a>
             {% endif %}
@@ -675,10 +675,10 @@ body.bg-color2 {
 <!-- FOOTER-2 start -->
 <div class="row bg-color4 m-0 text-light text-center py-4 border-top border-secondary">
     <div class="col-sm-6 mb-2 mb-sm-0">
-        <b class="text-color1">Copyright &copy; 2026 | </b><a href="/user/index/" class="text-decoration-none text-warning fw-bold">Zeva</a>
+        <b class="text-color1">Copyright &copy; 2026 | </b><a href="{% url 'user:index' %}" class="text-decoration-none text-warning fw-bold">Zeva</a>
     </div>
     <div class="col-sm-6">
-        <b class="text-color1">Design And Develop By: </b><a href="/uprofile/" class="text-decoration-none text-coral fw-bold">Suyash Bajpai</a>
+        <b class="text-color1">Design And Develop By: </b><a href="{% url 'user:uprofile' %}" class="text-decoration-none text-coral fw-bold">Suyash Bajpai</a>
     </div>
 </div>
 <!-- FOOTER-2 End -->

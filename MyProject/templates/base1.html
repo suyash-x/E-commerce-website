@@ -193,11 +193,11 @@ aria-controls="offcanvasScrolling" class="text-decoration-none text-light p-2 ro
 <img src="/{{request.session.upic}}" alt="" width="36" height="36" class="rounded-circle border border-2 border-purple object-fit-cover">
 <span class="d-none d-sm-inline mx-2 fw-semibold">{{request.session.uname}}</span>
 </a>
-<ul class="dropdown-menu dropdown-menu-dark text-small shadow p-2 rounded-3 border-0 mt-2" style="background: var(--navy-light);" aria-labelledby="dropdownUser1">
-<li><a class="dropdown-item rounded-2 py-2" href="/customer/profile/"><i class="fa-solid fa-user me-2 text-purple"></i> My Profile</a></li>
-<li><a class="dropdown-item rounded-2 py-2" href="/customer/myorder/"><i class="fa-solid fa-box-open me-2 text-purple"></i> My Orders</a></li>
+<ul class="dropdown-menu dropdown-menu-dark text-small shadow p-2 rounded-3 border-0 mt-2" style="background: var(--navy-light);" aria-labelledby="dropdownUser1" >
+<li><a class="dropdown-item rounded-2 py-2" href="{% url 'customer:profile' %}"><i class="fa-solid fa-user me-2 text-purple"></i> My Profile</a></li>
+<li><a class="dropdown-item rounded-2 py-2" href="{% url 'customer:myorder' %}"><i class="fa-solid fa-box-open me-2 text-purple"></i> My Orders</a></li>
 <li><hr class="dropdown-divider border-secondary"></li>
-<li><a class="dropdown-item rounded-2 py-2 text-danger" href="/customer/logout/"><i class="fa-solid fa-power-off me-2"></i> Logout</a></li>
+<li><a class="dropdown-item rounded-2 py-2 text-danger" href="{% url 'customer:logout' %}"><i class="fa-solid fa-power-off me-2"></i> Logout</a></li>
 </ul>
 </div>
 {% endif %}
@@ -260,22 +260,22 @@ tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel" 
 <div class="offcanvas-body d-flex flex-column px-4 py-4">
 <ul class="nav nav-pills flex-column mb-auto gap-2">
 <li class="nav-item">
-<a href="/customer/index" class="nav-link fs-6 fw-semibold"><i class="fa-solid fa-chart-line fa-fw me-2"></i> Dashboard</a>
+<a href="{% url 'customer:index' %}" class="nav-link fs-6 fw-semibold {% if request.resolver_match.url_name == 'index' %}active{% endif %}"><i class="fa-solid fa-chart-line fa-fw me-2"></i> Dashboard</a>
 </li>
 <li>
-<a href="/customer/myorder" class="nav-link fs-6 fw-semibold"><i class="fa-solid fa-box-open fa-fw me-2"></i> My Orders</a>
+<a href="{% url 'customer:myorder' %}" class="nav-link fs-6 fw-semibold {% if request.resolver_match.url_name == 'myorder' %}active{% endif %}"><i class="fa-solid fa-box-open fa-fw me-2"></i> My Orders</a>
 </li>
 <li>
-<a href="/customer/profile" class="nav-link fs-6 fw-semibold"><i class="fa-solid fa-user-pen fa-fw me-2"></i> Edit Profile</a>
+<a href="{% url 'customer:profile' %}" class="nav-link fs-6 fw-semibold {% if request.resolver_match.url_name == 'profile' %}active{% endif %}"><i class="fa-solid fa-user-pen fa-fw me-2"></i> Edit Profile</a>
 </li>
 </ul>
 <hr class="border-secondary my-3">
 <ul class="nav nav-pills flex-column gap-2">
 <li>
-<a href="/user/index/" class="nav-link fs-6 fw-semibold text-warning"><i class="fa-solid fa-store fa-fw me-2"></i> Back to Shop</a>
+<a href="{% url 'user:index' %}" class="nav-link fs-6 fw-semibold text-warning"><i class="fa-solid fa-store fa-fw me-2"></i> Back to Shop</a>
 </li>
 <li>
-<a href="/customer/logout/" class="nav-link fs-6 fw-semibold text-danger"><i class="fa-solid fa-power-off fa-fw me-2"></i> Logout</a>
+<a href="{% url 'customer:logout' %}" class="nav-link fs-6 fw-semibold text-danger"><i class="fa-solid fa-power-off fa-fw me-2"></i> Logout</a>
 </li>
 </ul>
 </div>
@@ -290,7 +290,7 @@ tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel" 
 <!-- footer-1 -->
 <footer class="row bg-dark text-light text-center py-3 m-0 border-top border-secondary" style="background: var(--navy-dark) !important;">
 <div class="col-12">
-<span class="text-white-50">DEVELOPED BY: </span><a href="/user/profile/" class="text-decoration-none fw-bold" style="color: var(--violet-main);">SUYASH BAJPAI</a>
+<span class="text-white-50">DEVELOPED BY: </span><a href="{% url 'user:uprofile' %}" class="text-decoration-none fw-bold" style="color: var(--violet-main);">SUYASH BAJPAI</a>
 </div>
 </footer>
 

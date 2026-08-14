@@ -32,12 +32,16 @@ DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
 ALLOWED_HOSTS = []
 
-# Add the railway public domain to allowed hosts
+# Add the Railway public domain to allowed hosts
 RAILWAY_PUBLIC_DOMAIN = os.environ.get('RAILWAY_PUBLIC_DOMAIN')
 if RAILWAY_PUBLIC_DOMAIN:
     ALLOWED_HOSTS.append(RAILWAY_PUBLIC_DOMAIN)
     # Also add to CSRF trusted origins for secure POST requests
     CSRF_TRUSTED_ORIGINS = [f'https://{RAILWAY_PUBLIC_DOMAIN}']
+
+# It's a good practice to allow localhost for local development
+if DEBUG:
+    ALLOWED_HOSTS.append('127.0.0.1')
 
 # Application definition
 
@@ -133,8 +137,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
-ROOT_URLCONF = 'MyProject.urls'
 
 
 # Static files (CSS, JavaScript, Images)

@@ -44,15 +44,10 @@ def profile(request):
     return render(request,'customer/profile.html',{"userinfo": user_profile})
 def logout(request):
     user=request.session.get("email")
-    data=""
     if user:
-        del request.session["email"]
-        del request.session["uname"]
-        del request.session["upic"]
-        del request.session["cartitem"]
+        request.session.flush() # Clears all session data at once
         messages.success(request, 'You have been logged out successfully.')
-        return redirect("/user/index/")
-    return render(request,'customer/logout.html')
+    return redirect("/user/index/") # Always redirect to the index page
 
 def products(request):
     return render(request,'customer/products.html')

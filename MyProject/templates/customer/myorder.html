@@ -68,7 +68,7 @@
 {% else %}<span class="badge bg-warning text-dark px-3 py-2 rounded-pill">{{ order.status|default:'Pending' }}</span>{% endif %}
 </p>
 </div>
-<a href="/customer/orderdetail?oid={{order.orderid}}" class="btn btn-violet shadow-sm">View Details <i class="fa-solid fa-arrow-right ms-1"></i></a>
+<a href="{% url 'customer:orderdetail' %}?oid={{order.orderid}}" class="btn btn-violet shadow-sm">View Details <i class="fa-solid fa-arrow-right ms-1"></i></a>
 </div>
 </div>
 {% empty %}
@@ -76,7 +76,7 @@
 <div class="display-4 text-purple mb-3" style="color: #7C3AED;"><i class="fa-solid fa-box-open"></i></div>
 <h3 class="fw-bold text-dark">No Orders Yet!</h3>
 <p class="text-muted mb-4">You haven't placed any orders. Let's change that!</p>
-<a href="/user/products/" class="btn btn-violet px-4 py-2">Start Shopping</a>
+<a href="{% url 'user:products' %}" class="btn btn-violet px-4 py-2">Start Shopping</a>
 </div>
 {% endfor %}
 </div>

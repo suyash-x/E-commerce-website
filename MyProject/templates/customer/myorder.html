@@ -1,0 +1,83 @@
+{% extends 'base1.html' %}
+{% load static %}
+{% block xyz %}
+<style>
+.order-history-card {
+    background: white;
+    border-radius: 1.25rem;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.04);
+    border: none;
+    border-left: 5px solid #7C3AED;
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease;
+}
+.order-history-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(124, 58, 237, 0.1) !important;
+}
+.order-history-card .card-header {
+    background-color: #F8FAFC;
+    border-bottom: 1px solid #E2E8F0;
+    font-weight: 600;
+    border-top-right-radius: 1.25rem !important;
+}
+.order-history-card .card-footer {
+    background-color: #F8FAFC;
+}
+.btn-violet {
+    background-color: #7C3AED;
+    color: #fff;
+    border-radius: 50rem;
+    padding: 0.5rem 1.25rem;
+    font-weight: 600;
+    border: none;
+    transition: all 0.25s ease;
+}
+.btn-violet:hover {
+    background-color: #6D28D9;
+    color: #fff;
+    transform: scale(1.03);
+}
+</style>
+<div class="container py-5">
+<div class="row mb-4">
+<div class="col-12">
+<span class="badge bg-purple text-white px-3 py-2 rounded-pill fw-bold mb-2" style="background: #7C3AED;">PURCHASE HISTORY</span>
+<h1 class="fw-bold text-dark display-6">My Order History</h1>
+<p class="text-muted">Here you can find all the orders you've placed with us.</p>
+</div>
+</div>
+{% for order in data %}
+<div class="card order-history-card">
+<div class="card-header py-3 px-4">
+<div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+<div>
+<span class="text-muted">Order #</span><strong class="text-dark">{{ order.orderid }}</strong>
+</div>
+<div>
+<span class="text-muted">Placed on:</span> <strong class="text-dark">{{ order.order_date|date:"F d, Y" }}</strong>
+</div>
+</div>
+</div>
+<div class="card-body p-4 d-flex justify-content-between align-items-center flex-wrap gap-3">
+<div>
+<h5 class="card-title fw-bold mb-1 text-dark">Total: <i class="fa-solid fa-inr"></i> {{ order.total_amount }}/-</h5>
+<p class="card-text text-muted mb-0">Status:
+{% if order.status == 'Delivered' %}<span class="badge bg-success px-3 py-2 rounded-pill">{{ order.status }}</span>
+{% elif order.status == 'Shipped' %}<span class="badge bg-info text-dark px-3 py-2 rounded-pill">{{ order.status }}</span>
+{% else %}<span class="badge bg-warning text-dark px-3 py-2 rounded-pill">{{ order.status|default:'Pending' }}</span>{% endif %}
+</p>
+</div>
+<a href="/customer/orderdetail?oid={{order.orderid}}" class="btn btn-violet shadow-sm">View Details <i class="fa-solid fa-arrow-right ms-1"></i></a>
+</div>
+</div>
+{% empty %}
+<div class="text-center p-5 bg-white rounded-4 shadow-sm border">
+<div class="display-4 text-purple mb-3" style="color: #7C3AED;"><i class="fa-solid fa-box-open"></i></div>
+<h3 class="fw-bold text-dark">No Orders Yet!</h3>
+<p class="text-muted mb-4">You haven't placed any orders. Let's change that!</p>
+<a href="/user/products/" class="btn btn-violet px-4 py-2">Start Shopping</a>
+</div>
+{% endfor %}
+</div>
+{% endblock %}

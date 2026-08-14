@@ -1,0 +1,237 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block xyz %}
+<style>
+.category-card {
+    border-radius: 20px;
+    border: none;
+    background: linear-gradient(135deg, #FFF6E5 0%, #FFE5C8 100%) !important;
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+.category-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08) !important;
+}
+.product-card {
+    border-radius: 20px;
+    border: 1px solid rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+    background: #ffffff;
+}
+.product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1) !important;
+}
+.hero-section {
+    background-size: cover;
+    background-position: center;
+    border-radius: 24px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    min-height: 420px;
+    display: flex;
+    align-items: center;
+}
+.hero-slide-1 {
+    background: linear-gradient(135deg, rgba(18, 18, 18, 0.85), rgba(18, 18, 18, 0.6)), url("{% static 'images/gslider.webp' %}");
+}
+.hero-slide-2 {
+    background: linear-gradient(135deg, rgba(18, 18, 18, 0.85), rgba(18, 18, 18, 0.6)), url("{% static 'images/groceryslider.jpg' %}");
+    background-size: cover;
+    background-position: center;
+}
+.hero-slide-3 {
+    background: linear-gradient(135deg, rgba(18, 18, 18, 0.85), rgba(18, 18, 18, 0.6)), url("{% static 'images/top-view-vegan-lettering-small-shopping-carts.jpg' %}");
+    background-size: cover;
+    background-position: center;
+}
+</style>
+
+<!-- slider -->
+<div class="row">
+<div class="col-sm-10 mx-auto my-4">
+<div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+<div class="carousel-indicators">
+<button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+<button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+<button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+</div>
+<div class="carousel-inner rounded-4 shadow-sm">
+<div class="carousel-item active hero-section hero-slide-1" data-bs-interval="5000">
+<div class="p-5 w-100">
+<div class="row align-items-center">
+<div class="col-md-7 text-light">
+<span class="badge bg-warning text-dark px-3 py-2 rounded-pill fw-bold mb-3">NEW DROP</span>
+<h1 class="display-4 fw-bold">Zeva</h1>
+<p class="lead text-warning fw-semibold">Your Trusted Online Shop</p>
+<div class="text-justify py-2 text-white-50">
+Discover a world of quality products at competitive prices. From fashion and electronics to home essentials, we've curated the best for you.
+</div>
+<a href="/user/products/" class="btn btn-genz btn-yellow btn-lg mt-3 fw-bold">
+Explore All Products
+</a>
+</div>
+</div>
+</div>
+</div>
+<div class="carousel-item hero-section hero-slide-2" data-bs-interval="5000">
+<div class="p-5 w-100">
+<div class="row align-items-center">
+<div class="col-md-7 text-light">
+<span class="badge bg-success px-3 py-2 rounded-pill fw-bold mb-3">FRESH ARRIVAL</span>
+<h1 class="display-4 fw-bold">Fresh Groceries</h1>
+<p class="lead text-success fw-semibold">Delivered to Your Doorstep</p>
+<div class="text-justify py-2 text-white-50">
+Shop for fresh fruits, vegetables, and pantry staples from the comfort of your home. Quality you can trust, every time.
+</div>
+<a href="/user/products?cid=1" class="btn btn-genz btn-mint btn-lg mt-3 fw-bold text-white">
+Shop Groceries
+</a>
+</div>
+</div>
+</div>
+</div>
+<div class="carousel-item hero-section hero-slide-3" data-bs-interval="5000">
+<div class="p-5 w-100">
+<div class="row align-items-center">
+<div class="col-md-7 text-light">
+<span class="badge bg-danger px-3 py-2 rounded-pill fw-bold mb-3">HOT DEALS</span>
+<h1 class="display-4 fw-bold">Exclusive Deals</h1>
+<p class="lead text-danger fw-semibold">Unbeatable Prices, Limited Time</p>
+<div class="text-justify py-2 text-white-50">
+Don't miss out on our special offers. Get the best products at the lowest prices. Shop now and save big!
+</div>
+<a href="/user/products/" class="btn btn-genz btn-coral btn-lg mt-3 fw-bold">
+View Deals
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+<span class="visually-hidden">Previous</span>
+</button>
+<button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+<span class="carousel-control-next-icon" aria-hidden="true"></span>
+<span class="visually-hidden">Next</span>
+</button>
+</div>
+</div>
+</div>
+<!-- slider end -->
+
+<!-- heading -->
+<div class="row">
+<div class="col-sm-10 mx-auto py-4">
+<div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+<div>
+<h2 class="fs-2 text-dark fw-bold">Top <span class="text-warning bg-dark px-2 rounded">Categories</span></h2>
+<p class="text-muted mb-0">Browse our carefully organized categories</p>
+</div>
+<a href="/user/products/" class="btn btn-outline-dark rounded-pill fw-bold px-4">Explore All &rarr;</a>
+</div>
+<hr class="w-25 text-warning border-3 opacity-100">
+</div>
+</div>
+<!-- end heading -->
+
+<!-- categories -->
+<div class="row pb-5">
+<div class="col-sm-10 mx-auto">
+<div class="row g-3">
+{% for x in categories%}
+<div class="col-lg-2 col-md-4 col-6 my-2">
+<div class="card category-card text-center p-3 h-100">
+<a href="/user/products?cid={{x.id}}" class="text-decoration-none text-dark">
+<div class="rounded-circle overflow-hidden mx-auto mb-2 shadow-sm" style="width: 100px; height: 100px; background: #fff;">
+<img src="/{{x.category_picture}}" class="w-100 h-100 object-fit-cover">
+</div>
+<div class="card-body p-0 mt-2">
+<b class="fs-6 fw-bold text-dark">{{x.category_name}}</b>
+</div>
+</a>
+</div>
+</div>
+{% endfor %}
+</div>
+</div>
+</div>
+<!-- end categories -->
+
+<!-- heading -->
+<div class="row bg-white py-4 border-top">
+<div class="col-sm-10 mx-auto py-3">
+<h2 class="fs-2 text-dark fw-bold">Best <span style="color: var(--accent-coral);">Deals</span> of the Day</h2>
+<hr class="w-25 border-3 border-danger opacity-100">
+<p class="text-muted fs-6">Discover exclusive discounts on your favorite products before they're gone.</p>
+</div>
+</div>
+<!-- end heading -->
+
+<!-- top offered product -->
+<div class="row pb-5 bg-white">
+<div class="col-sm-10 mx-auto">
+<div class="row g-4">
+{% for x in product %}
+<div class="col-lg-3 col-md-6 products my-2">
+<div class="card h-100 product-card position-relative p-3">
+<b class="badge bg-danger text-light position-absolute top-0 start-100 translate-middle rounded-pill shadow-sm" style="font-size: 0.85rem; padding: 0.5em 0.8em; z-index: 5;">
+{{x.product_discount}}% OFF</b>
+<div class="text-center py-2">
+<img src="/{{x.product_picture}}" class="card-img-top rounded-3" style="height: 180px; object-fit: contain;">
+</div>
+<div class="card-body px-0">
+<h5 class="card-title fw-bold fs-6 text-dark text-truncate">{{x.product_name}}</h5>
+<div class="text-warning small mb-2">
+<i class="fa-solid fa-star"></i>
+<i class="fa-solid fa-star"></i>
+<i class="fa-solid fa-star"></i>
+<i class="fa-solid fa-star"></i>
+<i class="fa-solid fa-star"></i>
+<span class="text-muted ms-1">(999+)</span>
+</div>
+<p class="card-text fs-5 fw-black text-dark mt-1">₹{{x.product_price}}/- <span class="fw-normal text-muted fs-6">{{x.product_weight}}</span></p>
+</div>
+<div class="card-footer bg-white border-0 p-0 pt-2">
+<div class="product-controls" data-pid="{{x.id}}">
+<div class="add-to-cart-container">
+<button type="button" class="btn btn-genz btn-yellow w-100 fw-bold shadow-sm add-to-cart-btn">Add to Cart</button>
+</div>
+<div class="quantity-control-container" style="display: none;">
+<div class="input-group">
+<span class="input-group-text bg-dark text-light cart1 rounded-start-pill quantity-btn" style="cursor: pointer;" data-action="decrement"><i class="fa-solid fa-minus"></i></span>
+<input type="text" value="1" readonly class="form-control text-center fw-bold border-secondary bg-white quantity-input">
+<span class="input-group-text bg-warning text-dark cart rounded-end-pill fw-bold quantity-btn" style="cursor: pointer;" data-action="increment"><i class="fa-solid fa-plus"></i></span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+{% endfor %}
+</div>
+</div>
+</div>
+<!-- top offered product end -->
+
+<!-- CTA -->
+<div class="row py-5 bg-dark text-light m-0 rounded-4 mx-sm-5 my-5 shadow-lg" style="background: var(--charcoal-light) !important;">
+<div class="col-sm-10 mx-auto px-4">
+<div class="row align-items-center">
+<div class="col-md-8">
+<h3 class="fw-black display-6 mb-3 text-warning">Find Products You'll Love</h3>
+<p class="text-white-50 lead fs-6">
+Shopping should be simple, enjoyable, and rewarding. We bring you curated high-quality products with secure payments, fast shipping, and 24/7 support.
+</p>
+</div>
+<div class="col-md-4 text-md-end mt-4 mt-md-0 d-flex flex-column gap-2">
+<a href="tel:+918400175077" class="btn btn-genz btn-coral fw-bold text-decoration-none"><i class="fa-solid fa-phone me-2"></i> Call Now</a>
+<a href="/user/products/" class="btn btn-genz btn-yellow fw-bold text-decoration-none"><i class="fa-solid fa-box me-2"></i> Explore Products</a>
+</div>
+</div>
+</div>
+</div>
+<!-- CTA end -->
+{{ cart_quantities|json_script:"cart-quantities-data" }}
+{% endblock %}

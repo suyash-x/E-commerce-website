@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block xyz %}
+<!-- ABOUT start -->
+<div class="row about py-5">
+<div class="col-sm-10 mx-auto">
+<div class="row align-items-center g-5">
+<div class="col-lg-7">
+<span class="badge bg-warning text-dark px-3 py-2 rounded-pill fw-bold mb-3">WHO WE ARE</span>
+<h2 class="display-5 fw-bold mb-3">About <span class="text-warning bg-dark px-2 rounded">Zeva</span></h2>
+<p class="lead text-muted fs-6 lh-lg text-justify">
+At ZEVA, we believe online shopping should be seamless, reliable, and tailored to your lifestyle. We bring you a curated collection of premium products, designed to deliver quality and value directly to your doorstep. Whether you are discovering everyday essentials or unique finds, ZEVA is dedicated to elevating your everyday shopping experience with fast delivery and exceptional customer care.
+</p>
+</div>
+<div class="col-lg-5 text-center">
+<div class="p-3 bg-white shadow-lg rounded-4 border">
+<img src="{% static 'images/about img.avif' %}" class="img-fluid rounded-3" alt="" style="max-height: 300px; width: 100%; object-fit: cover;">
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- ABOUT End -->
+
+<!-- Start vision & mission -->
+<div class="row py-5 bg-white border-top">
+<div class="col-sm-10 mx-auto">
+<div class="row g-4">
+<div class="col-md-6">
+<div class="shadow-sm p-4 rounded-4 h-100 border" style="background: linear-gradient(135deg, #FFF6E5 0%, #FFE5C8 100%);">
+<h4 class="fw-bold mb-3">Our <span class="text-danger">Vision</span></h4>
+<hr class="w-25 border-3 border-danger opacity-100 mb-3">
+<p class="text-muted mb-0 lh-lg">To build a trusted, next-generation e-commerce platform where discovery meets convenience—empowering customers across the globe to access top-tier products effortlessly while setting new standards for service and digital retail excellence.</p>
+</div>
+</div>
+<div class="col-md-6">
+<div class="shadow-sm p-4 rounded-4 h-100 border" style="background: linear-gradient(135deg, #E6FFFA 0%, #B2F5EA 100%);">
+<h4 class="fw-bold mb-3">Our <span class="text-success">Mission</span></h4>
+<hr class="w-25 border-3 border-success opacity-100 mb-3">
+<p class="text-muted mb-0 lh-lg">
+1. <b>Quality First:</b> Source and deliver high-standard products.<br>
+2. <b>Seamless Experience:</b> Smooth user journey from browse to checkout.<br>
+3. <b>Customer-Centric Care:</b> Reliable support at every step.<br>
+4. <b>Continuous Innovation:</b> Evolve based on our community needs.
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- End vision & mission -->
+
+<!-- Start Term & Condition -->
+<div class="row py-5 bg-light">
+<div class="col-sm-10 mx-auto">
+<div class="shadow-lg p-5 text-light rounded-4" style="background: var(--charcoal) !important;">
+<h4 class="text-center fw-bold display-6 mb-2">Terms & <span class="text-warning">Conditions</span></h4>
+<hr class="mx-auto w-25 border-3 border-warning opacity-100 mb-4">
+<div class="text-white-50 d-flex flex-column gap-3 fs-6">
+<p><b>1. Acceptance of Terms:</b> By accessing and using the ZEVA platform, you agree to comply with and be bound by these Terms and Conditions.</p>
+<p><b>2. Account Responsibility:</b> You are responsible for maintaining the confidentiality of your account login details and all activities under your account.</p>
+<p><b>3. Product Accuracy:</b> We strive to display product colors, descriptions, and prices as accurately as possible, but minor variations may occur.</p>
+<p><b>4. Pricing & Availability:</b> All prices are subject to change without prior notice. Products are subject to stock availability.</p>
+<p><b>5. Order Acceptance:</b> ZEVA reserves the right to cancel or refuse any order for reasons including stock limits, pricing errors, or suspected fraud.</p>
+<p><b>6. Payment Options:</b> All transactions must be completed using our authorized payment gateways to ensure maximum security.</p>
+<p><b>7. Shipping & Delivery:</b> Estimated delivery times are provided at checkout. ZEVA is not liable for minor delays caused by third-party logistics.</p>
+<p><b>8. Returns & Refunds:</b> Items can be returned or exchanged within the specified return window, meeting our guidelines.</p>
+<p><b>9. Intellectual Property:</b> All content, logos, images, and brand materials belong strictly to ZEVA.</p>
+<p><b>10. User Conduct:</b> Misuse of the website, including unauthorized access, is strictly prohibited.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- End Term & Condition -->
+
+<!-- start of FAQ -->
+<div class="row py-5 bg-white">
+<div class="col-sm-10 mx-auto">
+<div class="text-center mb-5">
+<h2 class="fw-bold display-6">Frequently Asked <span class="text-success">Questions</span></h2>
+<hr class="w-25 mx-auto border-3 border-success opacity-100">
+</div>
+<div class="row g-4">
+<div class="col-md-6">
+<div class="shadow-sm p-4 rounded-4 h-100 bg-white border-start border-warning border-5">
+<b class="fs-5 text-dark d-block mb-2">1. How do I place an order on ZEVA?</b>
+<p class="text-muted mb-0">Browse our products, select your items, add them to your cart, and proceed to checkout with your delivery address and payment method.</p>
+</div>
+</div>
+<div class="col-md-6">
+<div class="shadow-sm p-4 rounded-4 h-100 bg-white border-start border-success border-5">
+<b class="fs-5 text-dark d-block mb-2">2. What payment methods do you support?</b>
+<p class="text-muted mb-0">We accept UPI (Google Pay, PhonePe, Paytm), Credit/Debit Cards, Net Banking, and popular digital wallets.</p>
+</div>
+</div>
+<div class="col-md-6">
+<div class="shadow-sm p-4 rounded-4 h-100 bg-white border-start border-primary border-5">
+<b class="fs-5 text-dark d-block mb-2">3. How can I track my order?</b>
+<p class="text-muted mb-0">Once shipped, you will receive a tracking link via email/SMS, or you can view live status updates under your account dashboard.</p>
+</div>
+</div>
+<div class="col-md-6">
+<div class="shadow-sm p-4 rounded-4 h-100 bg-white border-start border-danger border-5">
+<b class="fs-5 text-dark d-block mb-2">4. What is the estimated delivery time?</b>
+<p class="text-muted mb-0">Standard delivery takes 3 to 7 business days depending on your location. Express delivery options are available at checkout.</p>
+</div>
+</div>
+<div class="col-md-6">
+<div class="shadow-sm p-4 rounded-4 h-100 bg-white border-start border-warning border-5">
+<b class="fs-5 text-dark d-block mb-2">5. What is ZEVA’s return policy?</b>
+<p class="text-muted mb-0">If you receive damaged or defective items, you can initiate a return or exchange within 7 days of delivery through your panel.</p>
+</div>
+</div>
+<div class="col-md-6">
+<div class="shadow-sm p-4 rounded-4 h-100 bg-white border-start border-success border-5">
+<b class="fs-5 text-dark d-block mb-2">6. How can I reach customer support?</b>
+<p class="text-muted mb-0">Reach out via our Contact Us page or email us at suyashbajpai00@gmail.com for quick assistance.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- End of FAQ -->
+{% endblock %}

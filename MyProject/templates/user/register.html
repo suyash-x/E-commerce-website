@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block xyz %}
+<div class="row py-5">
+<div class="col-sm-10 mx-auto">
+<div class="row align-items-center g-5">
+<div class="col-lg-6">
+<div class="card border-0 shadow-lg p-4 rounded-4 bg-white">
+<span class="badge bg-warning text-dark px-3 py-2 rounded-pill fw-bold mb-3 w-25 text-center">JOIN US</span>
+<h3 class="fw-bold mb-4">Complete your <span class="text-warning bg-dark px-2 rounded">Registration</span></h3>
+<form action="" method="post" enctype="multipart/form-data">
+{% csrf_token %}
+<div class="mb-3">
+<input type="text" required name="name" placeholder="Full Name" class="form-control border-2 bg-light">
+</div>
+<div class="mb-3">
+<input type="number" required name="mobile" placeholder="Mobile Number" class="form-control border-2 bg-light">
+</div>
+<div class="mb-3">
+<input type="email" required name="email" placeholder="Email Address" class="form-control border-2 bg-light">
+</div>
+<div class="mb-3">
+<input type="password" required name="password" placeholder="Password" class="form-control border-2 bg-light">
+</div>
+<div class="mb-3">
+<label class="form-label small fw-bold text-muted">Profile Picture</label>
+<input type="file" required name="fu" class="form-control border-2 bg-light">
+</div>
+<div class="mb-3">
+<textarea name="address" placeholder="Delivery Address" class="form-control border-2 bg-light" style="height: 90px; resize: none;"></textarea>
+</div>
+<div class="d-flex justify-content-between align-items-center mb-4">
+<span class="text-muted small">Already Registered?</span>
+<a href="/user/login" class="text-dark fw-bold text-decoration-none">Login Now</a>
+</div>
+<button type="submit" class="btn btn-genz btn-yellow w-100 py-3 fw-bold shadow-sm">REGISTER NOW</button>
+</form>
+</div>
+</div>
+<div class="col-lg-6 text-center">
+<div class="p-3 bg-white shadow-lg rounded-4 border">
+<img src="{% static 'images/registration poster.jpg' %}" class="img-fluid rounded-3 w-100" style="max-height: 520px; object-fit: cover;" alt="">
+</div>
+</div>
+</div>
+</div>
+</div>
+{% endblock %}
+{% block services %}
+{% endblock %}

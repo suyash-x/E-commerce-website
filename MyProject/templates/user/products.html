@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block xyz %}
+<!-- heading -->
+<div class="row py-4 bg-white border-bottom">
+<div class="col-sm-10 mx-auto">
+<div class="fs-3 fw-bold text-dark">Everything You Need, <span class="text-success">All in One Store</span></div>
+<p class="text-muted fs-6 mb-0">Browse thousands of products, enjoy secure payments, and fast delivery.</p>
+</div>
+</div>
+<!-- end heading -->
+
+<!-- products -->
+<div class="row py-4">
+<div class="col-sm-10 mx-auto">
+<div class="row g-4">
+<div class="col-lg-3 col-md-4">
+<div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+<div class="card-header bg-dark text-white fw-bold py-3 fs-5">
+<i class="fa-solid fa-layer-group me-2 text-warning"></i> Categories
+</div>
+<ul class="list-group list-group-flush">
+{% for x in categories %}
+<a href="/user/products?cid={{x.id}}" class="text-decoration-none">
+<li class="list-group-item d-flex align-items-center gap-3 py-3 border-light hover-bg">
+<img src="/{{x.category_picture}}" height="40px" width="40px" class="rounded-circle object-fit-cover border shadow-sm">
+<b class="text-dark fs-6">{{x.category_name}}</b>
+</li>
+</a>
+{% endfor %}
+</ul>
+</div>
+</div>
+
+<div class="col-lg-9 col-md-8">
+<div class="row g-4" style="max-height: 750px; overflow-y: auto; padding-right: 5px;">
+{% for x in product %}
+<div class="col-lg-4 col-md-6 products">
+<div class="card h-100 product-card position-relative p-3 shadow-sm border-0 rounded-4">
+<b class="badge bg-success text-light position-absolute top-0 start-100 translate-middle rounded-pill shadow-sm" style="font-size: 0.85rem; padding: 0.5em 0.8em; z-index: 5;">
+₹{{x.product_discount}} OFF</b>
+<div class="text-center py-2">
+<img src="/{{x.product_picture}}" class="card-img-top rounded-3" style="height: 170px; object-fit: contain;">
+</div>
+<div class="card-body px-0">
+<h5 class="card-title fw-bold fs-6 text-dark text-truncate">{{x.product_name}}</h5>
+<div class="text-warning small mb-2">
+<i class="fa-solid fa-star"></i>
+<i class="fa-solid fa-star"></i>
+<i class="fa-solid fa-star"></i>
+<i class="fa-solid fa-star"></i>
+<i class="fa-solid fa-star"></i>
+<span class="text-muted ms-1">(999+)</span>
+</div>
+<div class="text-dark fs-5 fw-black mt-1">₹{{x.product_price}}/- <span class="fw-normal text-muted fs-6">{{x.product_weight}}</span></div>
+
+<div class="product-controls mt-3" data-pid="{{x.id}}">
+<div class="add-to-cart-container">
+<button type="button" class="btn btn-genz btn-yellow w-100 fw-bold shadow-sm add-to-cart-btn">Add to Cart</button>
+</div>
+<div class="quantity-control-container" style="display: none;">
+<div class="input-group">
+<span class="input-group-text bg-dark text-light cart1 rounded-start-pill quantity-btn" style="cursor: pointer;" data-action="decrement"><i class="fa-solid fa-minus"></i></span>
+<input type="text" value="1" readonly class="form-control text-center fw-bold border-secondary bg-white quantity-input">
+<span class="input-group-text bg-success text-white cart rounded-end-pill fw-bold quantity-btn" style="cursor: pointer;" data-action="increment"><i class="fa-solid fa-plus"></i></span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+{% endfor %}
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- products end -->
+{{ cart_quantities|json_script:"cart-quantities-data" }}
+{% endblock %}
+{% block services %}
+{% endblock %}

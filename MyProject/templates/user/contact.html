@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block xyz %}
+<!-- CONTACT start -->
+<div class="row py-5">
+<div class="col-sm-10 mx-auto">
+<div class="row g-5">
+<div class="col-lg-5">
+<div class="d-flex flex-column gap-4">
+<!-- card 1 -->
+<div class="card border-0 shadow-sm p-3 rounded-4" style="background: linear-gradient(135deg, #FFF6E5 0%, #FFE5C8 100%);">
+<div class="row align-items-center g-0">
+<div class="col-3 text-center">
+<div class="bg-white rounded-circle shadow-sm d-inline-flex align-items-center justify-content-center text-warning" style="width: 55px; height: 55px; font-size: 1.3rem;">
+<i class="fa-solid fa-phone"></i>
+</div>
+</div>
+<div class="col-9">
+<div class="card-body py-1">
+<span class="text-muted small fw-bold d-block">CALL US</span>
+<b class="text-dark fs-6">+91-9219238456</b>
+</div>
+</div>
+</div>
+</div>
+<!-- card 2 -->
+<div class="card border-0 shadow-sm p-3 rounded-4" style="background: linear-gradient(135deg, #E6FFFA 0%, #B2F5EA 100%);">
+<div class="row align-items-center g-0">
+<div class="col-3 text-center">
+<div class="bg-white rounded-circle shadow-sm d-inline-flex align-items-center justify-content-center text-success" style="width: 55px; height: 55px; font-size: 1.3rem;">
+<i class="fa-solid fa-envelope"></i>
+</div>
+</div>
+<div class="col-9">
+<div class="card-body py-1">
+<span class="text-muted small fw-bold d-block">MAIL US</span>
+<b class="text-dark fs-6" style="word-break: break-all;">suyashbajpai00@gmail.com</b>
+</div>
+</div>
+</div>
+</div>
+<!-- card 3 -->
+<div class="card border-0 shadow-sm p-3 rounded-4" style="background: linear-gradient(135deg, #FFF5F5 0%, #FED7D7 100%);">
+<div class="row align-items-center g-0">
+<div class="col-3 text-center">
+<div class="bg-white rounded-circle shadow-sm d-inline-flex align-items-center justify-content-center text-danger" style="width: 55px; height: 55px; font-size: 1.3rem;">
+<i class="fa-solid fa-location-dot"></i>
+</div>
+</div>
+<div class="col-9">
+<div class="card-body py-1">
+<span class="text-muted small fw-bold d-block">ADDRESS</span>
+<b class="text-dark fs-6">One World, Shalimar</b>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="col-lg-7">
+<div class="card border-0 shadow-lg p-4 rounded-4 bg-white">
+<h3 class="fw-bold mb-3">Send Us a Message</h3>
+<p class="text-muted mb-4">Have questions or feedback? Fill out the form and we'll get back to you shortly.</p>
+<form action="" method="post">
+{% csrf_token %}
+<div class="mb-3">
+<input type="text" required name="name" placeholder="Your Full Name" class="form-control text-dark bg-white border-2">
+</div>
+<div class="mb-3">
+<input type="number" required name="mobile" placeholder="Mobile Number" class="form-control text-dark bg-white border-2">
+</div>
+<div class="mb-3">
+<input type="email" required name="email" placeholder="Email Address" class="form-control text-dark bg-white border-2">
+</div>
+<div class="mb-3">
+<textarea name="message" placeholder="Type your message here..." class="form-control text-dark bg-white border-2" style="height: 130px; resize: none;" required></textarea>
+</div>
+<button type="submit" class="btn btn-genz btn-yellow w-100 py-3 fw-bold shadow-sm">Send Message</button>
+</form>
+{% if msg %}
+<div class="alert alert-dark mt-3 mb-0 text-center fw-bold rounded-pill">
+{{ msg }}
+</div>
+{% endif %}
+</div>
+</div>
+</div>
+
+<div class="row mt-5">
+<div class="col-sm-12 p-0 overflow-hidden rounded-4 shadow-sm border">
+<iframe
+src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4592.773218531864!2d81.00819752198866!3d26.840870584670594!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399be33adefcb4bb%3A0x797d56213fa20193!2sShalimar%20One%20World!5e0!3m2!1sen!2sin!4v1784641120577!5m2!1sen!2sin"
+width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"
+referrerpolicy="strict-origin-when-cross-origin"></iframe>
+</div>
+</div>
+</div>
+</div>
+<!-- CONTACT End -->
+{% endblock %}

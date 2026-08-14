@@ -1,0 +1,13 @@
+<!-- SLIDER start -->
+<div class="row slider py-3 ">
+    <div class="col-sm-10 mx-auto text-center">
+        <p class="fs-1 text-center text-light py-0">Welcome to <b class="text-danger">ZEVA</b></p>
+        <hr class="text-light">
+        <h5 class="pe-5 py-0 text-color1">Discover Quality, Style & Convenience — All in One Place.</h5>
+        <div class="pe-5 py-5 text-color1">Explore a premium collection of handpicked products curated just for you.
+            From daily essentials to trending finds, ZEVA brings top-tier quality directly to your doorstep with smooth
+            checkout and fast, reliable delivery.</div>
+        <a href="#" class="btn1"><b>SHOP NOW</b></a>
+    </div>
+</div>
+<!-- SLIDER End -->

@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block xyz %}
+<style>
+.profile-header {
+    background: linear-gradient(135deg, var(--charcoal) 0%, var(--charcoal-light) 100%);
+    padding: 5rem 0;
+    color: white;
+    border-bottom: 4px solid var(--accent-coral);
+}
+.profile-avatar {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    border: 4px solid var(--accent-yellow);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    object-fit: cover;
+}
+.social-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    margin: 0 0.5rem;
+    transition: all 0.3s ease;
+}
+.social-links a:hover {
+    background: var(--accent-yellow);
+    color: var(--charcoal);
+    transform: translateY(-3px) scale(1.1);
+}
+.section-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    margin-bottom: 2rem;
+    border: 1px solid rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+}
+.section-card:hover {
+    transform: translateY(-4px);
+}
+.skill-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1.5rem;
+    border: 1px solid #E2E8F0;
+    border-radius: 16px;
+    transition: all 0.3s ease;
+    background: #F9F9FB;
+    height: 100%;
+}
+.skill-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.08);
+    border-color: var(--accent-coral);
+    background: #fff;
+}
+.skill-icon {
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+    color: var(--accent-coral);
+}
+</style>
+
+<div class="profile-header text-center">
+<div class="container">
+<img src="{% static 'images/IMG_20260604_214047.jpg' %}" alt="Suyash Bajpai" class="profile-avatar">
+<h1 class="display-4 fw-bold mt-3">Suyash Bajpai</h1>
+<p class="lead text-warning fw-semibold">Full Stack Developer & Tech Enthusiast</p>
+<div class="social-links mt-4">
+<a href="https://www.instagram.com/suyash_bajpai.x/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+<a href="https://x.com/ADITYA21821793" target="_blank" title="Twitter/X"><i class="fab fa-twitter"></i></a>
+<a href="https://github.com/suyash-bajpai" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+<a href="https://www.linkedin.com/in/suyash-bajpai-dev/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+</div>
+</div>
+</div>
+
+<div class="container py-5">
+<div class="row">
+<div class="col-lg-10 mx-auto">
+<!-- About Me Section -->
+<div class="section-card">
+<span class="badge bg-warning text-dark px-3 py-2 rounded-pill fw-bold mb-3">ABOUT ME</span>
+<h2 class="fw-bold mb-3">Engineering Digital Experiences</h2>
+<p class="text-muted lh-lg fs-6">
+Welcome! I’m Suyash Bajpai, a passionate and detail-oriented Software Developer dedicated to crafting modern, efficient, and user-centric web applications. With a solid technical foundation bridging front-end aesthetics and robust back-end engineering, I transform complex ideas into intuitive digital experiences. My technical toolkit spans core languages like C, C++, and Python, paired with essential web technologies including HTML, JavaScript, and Bootstrap. On the back-end, I specialize in building scalable, secure web solutions using Django and managing data structures seamlessly with modern database architectures. Driven by continuous learning and a passion for technology, I am constantly exploring new frameworks and tools to push the boundaries of modern software development. Let’s connect and turn creative concepts into powerful digital solutions!
+</p>
+</div>
+
+<!-- Skills Section -->
+<div class="section-card">
+<span class="badge bg-success text-white px-3 py-2 rounded-pill fw-bold mb-3">EXPERTISE</span>
+<h2 class="fw-bold mb-4">My Skillset</h2>
+<div class="row g-4">
+<div class="col-md-4"><div class="skill-card text-center"><i class="fab fa-python skill-icon"></i><h5 class="fw-bold text-dark">Python & Django</h5></div></div>
+<div class="col-md-4"><div class="skill-card text-center"><i class="fab fa-html5 skill-icon"></i><h5 class="fw-bold text-dark">HTML5</h5></div></div>
+<div class="col-md-4"><div class="skill-card text-center"><i class="fab fa-css3-alt skill-icon" style="color: var(--accent-mint);"></i><h5 class="fw-bold text-dark">CSS3 & Bootstrap</h5></div></div>
+<div class="col-md-4"><div class="skill-card text-center"><i class="fab fa-js-square skill-icon" style="color: var(--accent-yellow);"></i><h5 class="fw-bold text-dark">JavaScript</h5></div></div>
+<div class="col-md-4"><div class="skill-card text-center"><i class="fas fa-database skill-icon" style="color: #6366F1;"></i><h5 class="fw-bold text-dark">SQL & Databases</h5></div></div>
+<div class="col-md-4"><div class="skill-card text-center"><i class="fab fa-git-alt skill-icon" style="color: #F97316;"></i><h5 class="fw-bold text-dark">Git & Version Control</h5></div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+{% endblock %}

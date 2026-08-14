@@ -1,0 +1,25 @@
+{% extends 'base1.html' %}
+{% load static %}
+{% block xyz %}
+<div class="container py-5 my-5">
+<div class="row justify-content-center">
+<div class="col-md-6 col-lg-5">
+<div class="card border-0 shadow-lg p-5 rounded-4 text-center bg-white">
+<div class="mb-4">
+<div class="d-inline-flex align-items-center justify-content-center rounded-circle" style="width: 80px; height: 80px; background: rgba(124, 58, 237, 0.1); color: #7C3AED; font-size: 2rem;">
+<i class="fa-solid fa-power-off"></i>
+</div>
+</div>
+<h3 class="fw-bold text-dark mb-2">Ready to Leave?</h3>
+<p class="text-muted mb-4">You have been successfully logged in. Click below to sign out of your Zeva customer session.</p>
+<div class="d-grid gap-3">
+<a href="/customer/logout/" class="btn btn-violet py-3 fw-bold shadow-sm" style="background: #7C3AED; color: #fff; border-radius: 50rem;">Logout Now</a>
+<a href="/user/index/" class="text-decoration-none text-muted fw-semibold small">← Back to Storefront</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+{% endblock %}
+{% block services %}
+{% endblock %}

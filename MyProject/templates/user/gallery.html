@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block xyz %}
+<!-- GALLERY start -->
+<div class="row py-5">
+<div class="col-sm-10 mx-auto">
+<div class="text-center mb-5">
+<span class="badge bg-warning text-dark px-3 py-2 rounded-pill fw-bold mb-2">MOMENTS & DROPS</span>
+<h2 class="display-5 fw-bold">Image <span class="text-warning bg-dark px-2 rounded">Gallery</span></h2>
+<hr class="w-25 mx-auto border-3 border-warning opacity-100">
+<p class="text-muted">A glimpse into our curated lifestyle, products, and community experiences.</p>
+</div>
+
+<div class="row g-4">
+<!-- gallery box dynamic -->
+{% for x in gallerydata %}
+<div class="col-lg-3 col-md-4 col-sm-6">
+<div class="card border-0 shadow-sm p-3 rounded-4 bg-white h-100 gallery-card transition-all" style="transition: transform 0.3s ease, box-shadow 0.3s ease;">
+<div class="overflow-hidden rounded-3 mb-3" style="height: 200px;">
+<img src="/{{x.picture}}" class="w-100 h-100 object-fit-cover rounded-3 transition-scale" style="transition: transform 0.4s ease;" alt="" srcset="">
+</div>
+<h5 class="text-center fw-bold text-dark fs-6 mb-0">{{x.title}}</h5>
+</div>
+</div>
+{% endfor %}
+<!-- gallery box static fallback -->
+<div class="col-lg-3 col-md-4 col-sm-6">
+<div class="card border-0 shadow-sm p-3 rounded-4 bg-white h-100 gallery-card">
+<div class="overflow-hidden rounded-3 mb-3" style="height: 200px;">
+<img src="{% static 'images/pexels-joshua-cilliers-2158246004-36626909.jpg' %}" class="w-100 h-100 object-fit-cover rounded-3 transition-scale" alt="">
+</div>
+<h5 class="text-center fw-bold text-dark fs-6 mb-0">Zeva Lifestyle</h5>
+</div>
+</div>
+<div class="col-lg-3 col-md-4 col-sm-6">
+<div class="card border-0 shadow-sm p-3 rounded-4 bg-white h-100 gallery-card">
+<div class="overflow-hidden rounded-3 mb-3" style="height: 200px;">
+<img src="{% static 'images/pexels-joshua-cilliers-2158246004-36626909.jpg' %}" class="w-100 h-100 object-fit-cover rounded-3 transition-scale" alt="">
+</div>
+<h5 class="text-center fw-bold text-dark fs-6 mb-0">Fresh Groceries</h5>
+</div>
+</div>
+<div class="col-lg-3 col-md-4 col-sm-6">
+<div class="card border-0 shadow-sm p-3 rounded-4 bg-white h-100 gallery-card">
+<div class="overflow-hidden rounded-3 mb-3" style="height: 200px;">
+<img src="{% static 'images/pexels-joshua-cilliers-2158246004-36626909.jpg' %}" class="w-100 h-100 object-fit-cover rounded-3 transition-scale" alt="">
+</div>
+<h5 class="text-center fw-bold text-dark fs-6 mb-0">Daily Essentials</h5>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- GALLERY End -->
+
+<style>
+.gallery-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1) !important;
+}
+.gallery-card:hover img {
+    transform: scale(1.08);
+}
+</style>
+{% endblock %}

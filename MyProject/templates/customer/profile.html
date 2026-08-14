@@ -1,0 +1,98 @@
+{% extends 'base1.html' %}
+{% load static %}
+{% block xyz %}
+<style>
+.profile-card {
+    background: white;
+    border-radius: 1.25rem;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.04);
+    border: none;
+}
+.profile-header-banner {
+    background: linear-gradient(135deg, #0A1628 0%, #7C3AED 100%);
+    height: 120px;
+    border-radius: 1.25rem 1.25rem 0 0;
+}
+.profile-pic-wrapper {
+    position: relative;
+    width: 130px;
+    height: 130px;
+    margin: -65px auto 20px auto;
+    border-radius: 50%;
+    border: 4px solid white;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+.profile-pic {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.info-item {
+    color: #64748B;
+}
+.info-item i {
+    color: #7C3AED;
+}
+.btn-violet {
+    background-color: #7C3AED;
+    color: #fff;
+    border-radius: 50rem;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    border: none;
+    transition: all 0.25s ease;
+}
+.btn-violet:hover {
+    background-color: #6D28D9;
+    color: #fff;
+    transform: translateY(-2px);
+}
+</style>
+<div class="container py-5">
+<div class="row g-4">
+<div class="col-lg-4">
+<div class="card profile-card text-center pb-4 h-100 overflow-hidden">
+<div class="profile-header-banner"></div>
+<div class="profile-pic-wrapper">
+<img src="/{{userinfo.profile_pic}}" class="profile-pic" alt="Profile Picture">
+</div>
+<h3 class="fw-bold mb-1 text-dark">{{userinfo.name}}</h3>
+<p class="text-muted small px-3">{{userinfo.email}}</p>
+<hr class="mx-4 text-muted opacity-25">
+<div class="text-start px-4">
+<p class="info-item mb-3"><i class="fa-solid fa-phone me-2"></i> {{userinfo.mobile}}</p>
+<p class="info-item mb-0"><i class="fa-solid fa-location-dot me-2"></i> {{userinfo.address}}</p>
+</div>
+</div>
+</div>
+<div class="col-lg-8">
+<div class="card profile-card p-4 p-md-5 h-100">
+<span class="badge bg-purple text-white px-3 py-2 rounded-pill fw-bold mb-2 w-25 text-center" style="background: #7C3AED;">ACCOUNT SETTINGS</span>
+<h3 class="fw-bold text-dark mb-1">Update Profile</h3>
+<p class="text-muted mb-4">Change your personal details here.</p>
+<form action="" method="post" enctype="multipart/form-data">
+{% csrf_token %}
+<div class="mb-3">
+<label for="name" class="form-label small fw-bold">Full Name</label>
+<input type="text" value="{{userinfo.name}}" name="name" id="name" class="form-control border-2 bg-light">
+</div>
+<div class="mb-3">
+<label for="mobile" class="form-label small fw-bold">Mobile Number</label>
+<input type="text" value="{{userinfo.mobile}}" name="mobile" id="mobile" class="form-control border-2 bg-light">
+</div>
+<div class="mb-3">
+<label for="fu" class="form-label small fw-bold">Update Profile Picture</label>
+<input type="file" name="fu" id="fu" class="form-control border-2 bg-light">
+</div>
+<div class="mb-4">
+<label for="address" class="form-label small fw-bold">Address</label>
+<textarea name="address" id="address" class="form-control border-2 bg-light" style="resize: none; height: 100px;">{{userinfo.address}}</textarea>
+</div>
+<button type="submit" class="btn btn-violet w-100 shadow-sm">Update Profile</button>
+</form>
+</div>
+</div>
+</div>
+</div>
+{% endblock %}

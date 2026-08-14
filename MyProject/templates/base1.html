@@ -1,0 +1,417 @@
+<html>
+<head>
+<title>Zeva - Customer Dashboard</title>
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/all.css' %}">
+<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+<style>
+:root {
+    --navy-dark: #0A1628;
+    --navy-light: #1E293B;
+    --violet-main: #7C3AED;
+    --violet-hover: #6D28D9;
+    --lavender-bg: #F4F5F7;
+}
+
+body {
+    background-color: var(--lavender-bg);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+.t .fa-brands {
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.2);
+    background-color: rgba(255,255,255,0.05);
+    height: 34px;
+    width: 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+.t .fa-brands:hover {
+    background-color: var(--violet-main);
+    border-color: var(--violet-main);
+    transform: translateY(-2px) scale(1.05);
+}
+
+.offcanvas-body .nav-link {
+    transition: all 0.25s ease-in-out;
+    padding: 0.85rem 1.25rem;
+    border-radius: 0.75rem;
+    color: #CBD5E1 !important;
+}
+.offcanvas-body .nav-link:hover,
+.offcanvas-body .nav-link.active {
+    background-color: var(--violet-main);
+    color: white !important;
+    padding-left: 1.5rem;
+    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+}
+
+.dashboard-navbar {
+    background-color: var(--navy-dark) !important;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+/* --- Notification Banner --- */
+#notification-banner-container {
+    width: 100%;
+    overflow: hidden;
+}
+.notification-banner {
+    background-color: #28a745; /* Solid green */
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    padding: 1rem;
+    transform: translateY(-100%);
+    opacity: 0;
+    transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+}
+.notification-banner.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+.notification-banner.warning {
+    background-color: #ffc107; /* Amber/Yellow */
+    color: #121212; /* Dark text for better contrast */
+}
+.notification-banner.error {
+    background-color: #dc3545; /* Solid red */
+    color: white;
+}
+.notification-banner.info {
+    background-color: #0dcaf0; /* Cyan/Info Blue */
+    color: white;
+}
+
+/* --- Redirect Modal --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 22, 40, 0.7);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1060; /* Higher than navbar */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.modal-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+.modal-card {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 1.5rem;
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+.modal-overlay.show .modal-card {
+    transform: scale(1);
+}
+#modal-icon-container {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+.icon-success { color: #28a745; }
+.icon-warning { color: #dc3545; }
+
+/* --- Order Success Modal --- */
+.success-checkmark {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: block;
+  stroke-width: 3;
+  stroke: #fff;
+  stroke-miterlimit: 10;
+  box-shadow: inset 0px 0px 0px #28a745;
+  animation: fill_anim .4s ease-in-out .4s forwards, scale_anim .3s ease-in-out .9s both;
+  margin: 0 auto 20px auto;
+}
+.success-checkmark__circle {
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  stroke-width: 3;
+  stroke-miterlimit: 10;
+  stroke: #28a745;
+  fill: #fff;
+  animation: stroke_anim 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+.success-checkmark__check {
+  transform-origin: 50% 50%;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: stroke_anim 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+}
+@keyframes stroke_anim {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes scale_anim {
+  0%, 100% { transform: none; }
+  50% { transform: scale3d(1.1, 1.1, 1); }
+}
+@keyframes fill_anim {
+  100% {
+    box-shadow: inset 0px 0px 0px 40px #28a745;
+  }
+}
+</style>
+</head>
+<script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+<body>
+<div class="container-fluid d-flex flex-column min-vh-100 p-0">
+<!-- top-section-start -->
+<div class="row t dashboard-navbar py-3 px-3 m-0 align-items-center">
+<div class="col-sm-6 text-uppercase fs-4 text-light py-0 d-flex align-items-center gap-3">
+<a href="#" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling"
+aria-controls="offcanvasScrolling" class="text-decoration-none text-light p-2 rounded-2" style="background: rgba(255,255,255,0.05);"><i class="fa-solid fa-bars"></i></a>
+<b class="fs-2 tracking-tight">Zeva<span style="color: var(--violet-main);"><i class="fa-solid fa-basket-shopping ms-1"></i></span></b>
+</div>
+<div class="col-sm-6 text-end text-light d-flex align-items-center justify-content-end gap-2">
+<a href="https://www.instagram.com/suyash_bajpai.x/"><i class="fa-brands fa-instagram"></i></a>
+<a href=""><i class="fa-brands fa-youtube"></i></a>
+<a href="https://x.com/ADITYA21821793"><i class="fa-brands fa-x-twitter"></i></a>
+{% if request.session.email %}
+<div class="dropdown ms-3">
+<a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle p-1 rounded-pill px-3" style="background: rgba(255,255,255,0.08);" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+<img src="/{{request.session.upic}}" alt="" width="36" height="36" class="rounded-circle border border-2 border-purple object-fit-cover">
+<span class="d-none d-sm-inline mx-2 fw-semibold">{{request.session.uname}}</span>
+</a>
+<ul class="dropdown-menu dropdown-menu-dark text-small shadow p-2 rounded-3 border-0 mt-2" style="background: var(--navy-light);" aria-labelledby="dropdownUser1">
+<li><a class="dropdown-item rounded-2 py-2" href="/customer/profile/"><i class="fa-solid fa-user me-2 text-purple"></i> My Profile</a></li>
+<li><a class="dropdown-item rounded-2 py-2" href="/customer/myorder/"><i class="fa-solid fa-box-open me-2 text-purple"></i> My Orders</a></li>
+<li><hr class="dropdown-divider border-secondary"></li>
+<li><a class="dropdown-item rounded-2 py-2 text-danger" href="/customer/logout/"><i class="fa-solid fa-power-off me-2"></i> Logout</a></li>
+</ul>
+</div>
+{% endif %}
+</div>
+</div>
+<!-- top-section-end -->
+
+<!-- Notification Banner -->
+{% if messages %}
+<div id="notification-banner-container">
+    {% for message in messages %}
+        <div class="notification-banner {% if message.tags %}{{ message.tags }}{% endif %}" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<!-- Redirect Modal -->
+<div class="modal-overlay" id="redirect-modal" style="display: none;">
+    <div class="modal-card">
+        <div id="modal-icon-container">
+            <!-- Icon will be inserted by JS -->
+        </div>
+        <h3 id="modal-title" class="fw-bold mb-2 text-dark"></h3>
+        <p id="modal-message" class="text-muted mb-3"></p>
+        <p id="modal-countdown" class="small text-muted mb-0"></p>
+    </div>
+</div>
+
+<!-- Order Success Modal -->
+<div class="modal-overlay" id="order-success-modal" style="display: none;">
+    <div class="modal-card">
+        <div class="success-animation">
+            <svg class="success-checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                <circle class="success-checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                <path class="success-checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+            </svg>
+        </div>
+        <h3 class="fw-bold mb-2 text-dark">Order Placed!</h3>
+        <p class="text-muted mb-0">Thank you for your purchase.</p>
+    </div>
+</div>
+<!-- User, please create a 'sounds' folder in 'static' and add your sound file here, e.g., /static/sounds/success.mp3 -->
+<audio id="order-success-sound" src="{% static 'sounds/tu-dung.mp3' %}" preload="auto"></audio>
+
+<!-- menu start -->
+<div class="offcanvas offcanvas-start text-light border-0 shadow-lg" data-bs-scroll="true" data-bs-backdrop="false"
+tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel" style="background-color: var(--navy-dark);">
+<div class="offcanvas-header border-bottom border-secondary px-4 py-4">
+<div class="d-flex align-items-center">
+<img src="/{{request.session.upic}}" alt="" width="52" height="52" class="rounded-circle me-3 border border-2 border-purple object-fit-cover shadow-sm">
+<div>
+<h5 class="offcanvas-title fw-bold mb-0 text-white" id="offcanvasScrollingLabel">{{request.session.uname}}</h5>
+<small class="text-white-50 text-truncate d-inline-block" style="max-width: 180px;">{{request.session.email}}</small>
+</div>
+</div>
+<button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+</div>
+<div class="offcanvas-body d-flex flex-column px-4 py-4">
+<ul class="nav nav-pills flex-column mb-auto gap-2">
+<li class="nav-item">
+<a href="/customer/index" class="nav-link fs-6 fw-semibold"><i class="fa-solid fa-chart-line fa-fw me-2"></i> Dashboard</a>
+</li>
+<li>
+<a href="/customer/myorder" class="nav-link fs-6 fw-semibold"><i class="fa-solid fa-box-open fa-fw me-2"></i> My Orders</a>
+</li>
+<li>
+<a href="/customer/profile" class="nav-link fs-6 fw-semibold"><i class="fa-solid fa-user-pen fa-fw me-2"></i> Edit Profile</a>
+</li>
+</ul>
+<hr class="border-secondary my-3">
+<ul class="nav nav-pills flex-column gap-2">
+<li>
+<a href="/user/index/" class="nav-link fs-6 fw-semibold text-warning"><i class="fa-solid fa-store fa-fw me-2"></i> Back to Shop</a>
+</li>
+<li>
+<a href="/customer/logout/" class="nav-link fs-6 fw-semibold text-danger"><i class="fa-solid fa-power-off fa-fw me-2"></i> Logout</a>
+</li>
+</ul>
+</div>
+</div>
+<!-- menu end -->
+
+<main class="flex-grow-1">
+{% block xyz%}
+{% endblock %}
+</main>
+
+<!-- footer-1 -->
+<footer class="row bg-dark text-light text-center py-3 m-0 border-top border-secondary" style="background: var(--navy-dark) !important;">
+<div class="col-12">
+<span class="text-white-50">DEVELOPED BY: </span><a href="/user/profile/" class="text-decoration-none fw-bold" style="color: var(--violet-main);">SUYASH BAJPAI</a>
+</div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // --- Modal Elements ---
+    const modal = document.getElementById('redirect-modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalMessage = document.getElementById('modal-message');
+    const modalCountdown = document.getElementById('modal-countdown');
+    const modalIconContainer = document.getElementById('modal-icon-container');
+
+    // --- Banner Elements ---
+    const bannerContainer = document.getElementById('notification-banner-container');
+
+    if (bannerContainer) {
+        const banners = bannerContainer.querySelectorAll('.notification-banner');
+        let modalTriggered = false;
+
+        banners.forEach((banner, index) => {
+            if (modalTriggered) { // If modal is already set to show, remove other messages
+                banner.remove();
+                return;
+            }
+
+            const messageText = banner.textContent.trim();
+            let modalConfig = null;
+
+            // --- Check for Order Success Modal ---
+            if (messageText === 'Order placed successfully.') {
+                modalTriggered = true;
+                banner.remove(); // Don't show this message as a banner
+
+                const orderModal = document.getElementById('order-success-modal');
+                const orderSound = document.getElementById('order-success-sound');
+
+                if (orderModal) {
+                    orderModal.style.display = 'flex';
+                    setTimeout(() => orderModal.classList.add('show'), 10);
+                }
+
+                if (orderSound) {
+                    orderSound.play().catch(e => console.warn("Audio play failed. User interaction might be required."));
+                }
+
+                // Redirect after 2 seconds
+                setTimeout(() => {
+                    window.location.href = '/user/products/';
+                }, 2000);
+                return; // Message handled, skip to next
+            }
+
+            // --- Check for Redirect Modal Messages ---
+            if (messageText === 'Logged in successfully.') {
+                modalConfig = {
+                    type: 'success',
+                    title: 'Login Successful!',
+                    message: 'Welcome back. You are now logged in.',
+                    redirect: '/customer/index/'
+                };
+            } else if (messageText === 'You have been logged out successfully.') {
+                modalConfig = {
+                    type: 'success',
+                    title: 'Logout Successful!',
+                    message: 'You have been securely signed out.',
+                    redirect: '/user/index/'
+                };
+            } else if (messageText.startsWith('Please login')) {
+                modalConfig = {
+                    type: 'warning',
+                    title: 'Authentication Required',
+                    message: messageText,
+                    redirect: '/user/login/'
+                };
+            }
+
+            // --- Process Modal or Banner ---
+            if (modal && modalConfig) {
+                modalTriggered = true;
+                banner.remove(); // Don't show this message as a banner
+
+                // Configure and show the modal
+                modalTitle.textContent = modalConfig.title;
+                modalMessage.textContent = modalConfig.message;
+                if (modalConfig.type === 'success') {
+                    modalIconContainer.innerHTML = '<i class="fa-solid fa-check-circle icon-success"></i>';
+                } else if (modalConfig.type === 'warning') {
+                    modalIconContainer.innerHTML = '<i class="fa-solid fa-exclamation-circle icon-warning"></i>';
+                }
+
+                modal.style.display = 'flex';
+                setTimeout(() => modal.classList.add('show'), 10);
+
+                let countdown = 3;
+                modalCountdown.textContent = `Redirecting in ${countdown} seconds...`;
+
+                const interval = setInterval(() => {
+                    countdown--;
+                    modalCountdown.textContent = `Redirecting in ${countdown} seconds...`;
+                    if (countdown <= 0) {
+                        clearInterval(interval);
+                        window.location.href = modalConfig.redirect;
+                    }
+                }, 1000);
+                setTimeout(() => { window.location.href = modalConfig.redirect; }, 3100);
+
+            } else {
+                // --- Process as a Banner ---
+                setTimeout(() => {
+                    banner.classList.add('show');
+                }, 100 * (index + 1));
+
+                setTimeout(() => {
+                    banner.classList.remove('show');
+                    banner.addEventListener('transitionend', () => banner.remove(), { once: true });
+                }, 3000 + (100 * (index + 1)));
+            }
+        });
+    }
+});
+</script>
+</div>
+</body>
+</html>

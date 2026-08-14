@@ -1,0 +1,109 @@
+{% extends 'base1.html' %}
+{% load static %}
+{% block xyz %}
+<style>
+.order-card {
+    background: white;
+    border-radius: 1.25rem;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.04);
+    border: none;
+    margin-bottom: 1.5rem;
+}
+.order-header {
+    border-bottom: 1px solid #E2E8F0;
+    padding-bottom: 1.5rem;
+    margin-bottom: 2rem;
+}
+.info-label {
+    font-weight: 600;
+    color: #64748B;
+}
+.product-image {
+    width: 65px;
+    height: 65px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid #E2E8F0;
+}
+</style>
+<div class="container py-5">
+{% if order %}
+<div class="row order-header align-items-center">
+<div class="col-md-8">
+<span class="badge bg-purple text-white px-3 py-2 rounded-pill fw-bold mb-2" style="background: #7C3AED;">INVOICE SUMMARY</span>
+<h1 class="fw-bold text-dark display-6 mb-1">Order Details</h1>
+<p class="text-muted mb-0">Order #{{ order.orderid }}</p>
+</div>
+<div class="col-md-4 text-md-end mt-3 mt-md-0">
+<a href="/customer/myorder/" class="btn btn-outline-dark rounded-pill px-4 fw-bold">&larr; Back to Orders</a>
+</div>
+</div>
+<div class="row g-4">
+<!-- Left Column for Order Info -->
+<div class="col-lg-4">
+<div class="card order-card p-4 border-start border-purple border-5" style="border-left-color: #7C3AED !important;">
+<h5 class="fw-bold mb-3 text-dark">Order Summary</h5>
+<p class="mb-2"><span class="info-label">Order Date:</span> {{ order.order_date|date:"F d, Y" }}</p>
+<p class="mb-2"><span class="info-label">Order Status:</span>
+{% if order.status == 'Delivered' %}
+<span class="badge bg-success px-2 py-1">{{ order.status }}</span>
+{% elif order.status == 'Shipped' %}
+<span class="badge bg-info text-dark px-2 py-1">{{ order.status }}</span>
+{% else %}
+<span class="badge bg-warning text-dark px-2 py-1">{{ order.status|default:'Pending' }}</span>
+{% endif %}
+</p>
+<p class="mb-0"><span class="info-label">Grand Total:</span> <strong style="color: #7C3AED;"><i class="fa-solid fa-inr"></i> {{ order.total_amount }}/-</strong></p>
+</div>
+<div class="card order-card p-4">
+<h5 class="fw-bold mb-3 text-dark">Shipping Details</h5>
+<p class="mb-2"><span class="info-label">Name:</span> {{ order.name }}</p>
+<p class="mb-2"><span class="info-label">Mobile:</span> {{ order.mobile }}</p>
+<p class="mb-0"><span class="info-label">Address:</span> {{ order.address }}</p>
+</div>
+</div>
+<!-- Right Column for Items -->
+<div class="col-lg-8">
+<div class="card order-card p-4">
+<h5 class="fw-bold mb-3 text-dark">Items in this Order ({{ items|length }})</h5>
+<div class="table-responsive">
+<table class="table table-borderless table-hover align-middle mb-0">
+<tbody>
+{% for item in items %}
+<tr>
+<td style="width: 80px;">
+<img src="/{{item.product_picture}}" class="product-image" alt="{{item.product_name}}">
+</td>
+<td>
+<p class="fw-bold mb-1 text-dark">{{item.product_name}}</p>
+<small class="text-muted">{{item.product_weight}}</small>
+</td>
+<td class="text-center">
+<span class="badge bg-light text-dark border px-2 py-1">Qty: {{item.product_quantity}}</span>
+</td>
+<td class="text-end">
+<p class="fw-bold mb-0 text-dark"><i class="fa-solid fa-inr"></i> {{item.total_price}}/-</p>
+</td>
+</tr>
+{% empty %}
+<tr>
+<td colspan="4" class="text-center p-5">
+<p class="text-muted">This order has no items.</p>
+</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+{% else %}
+<div class="text-center p-5 bg-white rounded-4 shadow-sm">
+<h2 class="fw-bold text-dark">Order Not Found</h2>
+<p class="text-muted">The order you are looking for does not exist.</p>
+<a href="/customer/myorder/" class="btn btn-violet mt-3">Back to My Orders</a>
+</div>
+{% endif %}
+</div>
+{% endblock %}

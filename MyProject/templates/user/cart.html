@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block xyz %}
+<!-- heading -->
+<div class="row py-4 bg-white border-bottom">
+<div class="col-sm-10 mx-auto">
+<div class="fs-3 fw-bold text-dark">Your <span class="text-warning bg-dark px-2 rounded">Zeva</span> Cart</div>
+<p class="text-muted fs-6 mb-0">Review your favorites, apply discounts, and enjoy a seamless checkout experience.</p>
+</div>
+</div>
+<!-- end heading -->
+
+<div class="row py-5">
+<div class="col-sm-10 mx-auto">
+<div class="row g-4">
+<div class="col-lg-8">
+<div class="card border-0 shadow-sm rounded-4 overflow-hidden bg-white">
+<div class="table-responsive">
+<table class="table align-middle mb-0">
+<thead style="background: var(--charcoal); color: #fff;">
+<tr>
+<th scope="col" class="py-3 ps-3">ID</th>
+<th scope="col" class="py-3">Picture</th>
+<th scope="col" class="py-3">Name</th>
+<th scope="col" class="py-3">Qty</th>
+<th scope="col" class="py-3">Weight</th>
+<th scope="col" class="py-3">Price</th>
+<th scope="col" class="py-3">Disc/Qty</th>
+<th scope="col" class="py-3">Total</th>
+<th scope="col" class="py-3 pe-3">Action</th>
+</tr>
+</thead>
+<tbody>
+{% for x in data %}
+<tr class="transition-all" style="transition: background-color 0.2s ease;">
+<th scope="row" class="ps-3 fw-bold">#{{x.pid}}</th>
+<td><img src="/{{x.product_picture}}" height="60px" width="60px" class="rounded-3 object-fit-cover border shadow-sm"></td>
+<td class="fw-bold text-dark">{{x.product_name}}</td>
+<td><span class="badge bg-light text-dark border px-2 py-1">{{x.product_quantity}}</span></td>
+<td class="text-muted small">{{x.product_weight}}</td>
+<td>₹{{x.product_price}}</td>
+<td><span class="text-success fw-semibold">₹{{x.discount_price}}</span></td>
+<td class="fw-black text-dark">₹{{x.total_price}}</td>
+<td class="pe-3"><a href="/user/cart?cid={{x.id}}" class="btn btn-sm btn-outline-danger rounded-pill px-3 fw-bold"><i class="fa-solid fa-trash me-1"></i> Remove</a></td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+<div class="col-lg-4">
+<div class="card border-0 shadow-lg rounded-4 p-4 bg-white border-start border-warning border-5">
+<h4 class="fw-bold text-dark mb-3">Final Checkout</h4>
+<div class="d-flex align-items-center justify-content-between p-3 rounded-3 bg-light mb-4">
+<span class="text-muted fw-bold">Total Payable:</span>
+<span class="fs-4 fw-black text-dark"><i class="fa-solid fa-inr small"></i>{{payable_amount}}/-</span>
+</div>
+
+<form action="" method="post">
+{% csrf_token %}
+<div class="mb-3">
+<label class="form-label small fw-bold">Full Name <span class="text-danger">*</span></label>
+<input type="text" required name="name" class="form-control border-2 bg-light">
+</div>
+<div class="mb-3">
+<label class="form-label small fw-bold">Mobile No. <span class="text-danger">*</span></label>
+<input type="number" required name="mobile" class="form-control border-2 bg-light">
+</div>
+<div class="mb-3">
+<label class="form-label small fw-bold">Delivery Address <span class="text-danger">*</span></label>
+<textarea name="address" class="form-control border-2 bg-light" style="height: 100px; resize: none;" required></textarea>
+</div>
+<button type="submit" class="btn btn-genz btn-yellow w-100 py-3 fw-bold shadow-sm d-flex align-items-center justify-content-center gap-2">
+<span>ORDER NOW</span> <i class="fa-solid fa-arrow-right"></i>
+</button>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<style>
+.table tbody tr:hover {
+    background-color: #FFFDF5 !important;
+}
+</style>
+{% endblock %}
+{% block services %}
+{% endblock %}

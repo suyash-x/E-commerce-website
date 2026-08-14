@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block xyz %}
+<style>
+.profile-header {
+    background: linear-gradient(135deg, #0F172A 0%, #3B0764 100%);
+    padding: 5rem 0;
+    color: white;
+    border-bottom: 4px solid #7C3AED;
+}
+.profile-avatar {
+    width: 170px;
+    height: 170px;
+    border-radius: 50%;
+    border: 5px solid #7C3AED;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+    object-fit: cover;
+}
+.social-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+    border-radius: 50%;
+    font-size: 1.3rem;
+    margin: 0 0.5rem;
+    transition: all 0.3s ease;
+}
+.social-links a:hover {
+    background: #7C3AED;
+    color: #fff;
+    transform: translateY(-4px) scale(1.1);
+}
+.section-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    margin-bottom: 2rem;
+    border: 1px solid rgba(0,0,0,0.04);
+}
+.skill-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1.5rem;
+    border: 1px solid #E2E8F0;
+    border-radius: 16px;
+    transition: all 0.3s ease;
+    background: #F8FAFC;
+    height: 100%;
+}
+.skill-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 30px rgba(124, 58, 237, 0.1);
+    border-color: #7C3AED;
+    background: #fff;
+}
+.skill-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: #7C3AED;
+}
+</style>
+
+<div class="profile-header text-center">
+<div class="container">
+<img src="{% static 'images/IMG-20241108-WA0048.jpg' %}" alt="Suyash Bajpai" class="profile-avatar">
+<h1 class="display-4 fw-bold mt-3">Suyash Bajpai</h1>
+<p class="lead fw-semibold" style="color: #A78BFA;">Full Stack Developer & Tech Enthusiast</p>
+<div class="social-links mt-4">
+<a href="https://www.instagram.com/suyash_bajpai.x/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+<a href="https://x.com/ADITYA21821793" target="_blank" title="Twitter/X"><i class="fab fa-twitter"></i></a>
+<a href="https://github.com/suyash-bajpai" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+<a href="https://www.linkedin.com/in/suyash-bajpai-dev/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+</div>
+</div>
+</div>
+
+<div class="container py-5">
+<div class="row">
+<div class="col-lg-10 mx-auto">
+<!-- About Me Section -->
+<div class="section-card">
+<span class="badge bg-purple text-white px-3 py-2 rounded-pill fw-bold mb-3" style="background: #7C3AED;">DEVELOPER PROFILE</span>
+<h2 class="fw-bold mb-3">About Me</h2>
+<p class="text-muted" style="font-size: 1.1rem; line-height: 1.8;">
+Hello! I'm Suyash Bajpai, a tech enthusiast and Computer Science student based in Uttar Pradesh. I combine a strong academic foundation in software and engineering with a creative drive for digital content creation. Whether I'm diving into complex code structures, refining web designs, or building full-stack applications, I love bringing ideas to life. Dedicated to continuous learning and technical growth, I'm constantly exploring new tools to expand my skill set and shape a successful path in the tech world.
+</p>
+</div>
+<!-- Skills Section -->
+<div class="section-card">
+<span class="badge bg-dark text-white px-3 py-2 rounded-pill fw-bold mb-3">EXPERTISE</span>
+<h2 class="fw-bold mb-4">My Skillset</h2>
+<div class="row g-4">
+<div class="col-md-4">
+<div class="skill-card text-center">
+<i class="fab fa-python skill-icon"></i>
+<h5 class="fw-bold text-dark">Python & Django</h5>
+</div>
+</div>
+<div class="col-md-4">
+<div class="skill-card text-center">
+<i class="fab fa-html5 skill-icon" style="color: #E34F26;"></i>
+<h5 class="fw-bold text-dark">HTML5</h5>
+</div>
+</div>
+<div class="col-md-4">
+<div class="skill-card text-center">
+<i class="fab fa-css3-alt skill-icon" style="color: #1572B6;"></i>
+<h5 class="fw-bold text-dark">CSS3 & Bootstrap</h5>
+</div>
+</div>
+<div class="col-md-4">
+<div class="skill-card text-center">
+<i class="fab fa-js-square skill-icon" style="color: #F7DF1E;"></i>
+<h5 class="fw-bold text-dark">JavaScript</h5>
+</div>
+</div>
+<div class="col-md-4">
+<div class="skill-card text-center">
+<i class="fas fa-database skill-icon" style="color: #00758F;"></i>
+<h5 class="fw-bold text-dark">SQL & Databases</h5>
+</div>
+</div>
+<div class="col-md-4">
+<div class="skill-card text-center">
+<i class="fab fa-git-alt skill-icon" style="color: #F05032;"></i>
+<h5 class="fw-bold text-dark">Git & Version Control</h5>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+{% endblock %}
+{% block services %}
+{% endblock %}

@@ -1,0 +1,106 @@
+{% extends 'base1.html' %}
+{% load static %}
+{% block xyz %}
+<style>
+.dashboard-card {
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    border: none;
+    border-radius: 1.25rem;
+    background: #ffffff;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
+}
+.dashboard-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 35px rgba(124, 58, 237, 0.12) !important;
+}
+.dash-icon {
+    font-size: 2.2rem;
+    width: 76px;
+    height: 76px;
+    background-color: #F4F5F7;
+    color: #7C3AED;
+    border-radius: 50%;
+    margin-bottom: 1.25rem;
+    transition: all 0.4s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+}
+.dashboard-card:hover .dash-icon {
+    background-color: #7C3AED;
+    color: #ffffff;
+    transform: rotate(8deg) scale(1.1);
+    box-shadow: 0 8px 20px rgba(124, 58, 237, 0.3);
+}
+.welcome-header {
+    background: linear-gradient(135deg, #0A1628 0%, #7C3AED 100%);
+    color: white;
+    padding: 3.5rem 2rem;
+    border-radius: 1.5rem;
+    margin-bottom: 3rem;
+    box-shadow: 0 15px 35px rgba(10, 22, 40, 0.15);
+}
+</style>
+<div class="container py-5">
+<div class="row">
+<div class="col-lg-10 mx-auto">
+<div class="welcome-header text-center">
+<span class="badge bg-white text-dark px-3 py-2 rounded-pill fw-bold mb-3 shadow-sm">CUSTOMER DASHBOARD</span>
+<h1 class="display-5 fw-bold mb-2">Welcome, {{ request.session.uname|default:'Customer' }}!</h1>
+<p class="lead text-white-50 mb-0">Manage your profile, track your orders, and explore exclusive perks.</p>
+</div>
+</div>
+</div>
+<div class="row g-4 justify-content-center">
+<!-- My Profile Card -->
+<div class="col-lg-3 col-md-6">
+<a href="/customer/profile" class="text-decoration-none">
+<div class="card p-4 text-center dashboard-card h-100">
+<div class="d-flex justify-content-center">
+<div class="dash-icon"><i class="fa-solid fa-user"></i></div>
+</div>
+<p class="h5 text-dark fw-bold mb-1">MY PROFILE</p>
+<p class="text-muted small mb-0">View and edit your personal details.</p>
+</div>
+</a>
+</div>
+<!-- My Orders Card -->
+<div class="col-lg-3 col-md-6">
+<a href="/customer/myorder" class="text-decoration-none">
+<div class="card p-4 text-center dashboard-card h-100">
+<div class="d-flex justify-content-center">
+<div class="dash-icon"><i class="fa-solid fa-box-open"></i></div>
+</div>
+<p class="h5 text-dark fw-bold mb-1">MY ORDERS</p>
+<p class="text-muted small mb-0">Track your order history and status.</p>
+</div>
+</a>
+</div>
+<!-- Change Password Card -->
+<div class="col-lg-3 col-md-6">
+<a href="/customer/profile" class="text-decoration-none">
+<div class="card p-4 text-center dashboard-card h-100">
+<div class="d-flex justify-content-center">
+<div class="dash-icon"><i class="fa-solid fa-key"></i></div>
+</div>
+<p class="h5 text-dark fw-bold mb-1">SETTINGS</p>
+<p class="text-muted small mb-0">Update your account security.</p>
+</div>
+</a>
+</div>
+<!-- Logout Card -->
+<div class="col-lg-3 col-md-6">
+<a href="/customer/logout/" class="text-decoration-none">
+<div class="card p-4 text-center dashboard-card h-100">
+<div class="d-flex justify-content-center">
+<div class="dash-icon" style="color: #EF4444;"><i class="fa-solid fa-power-off"></i></div>
+</div>
+<p class="h5 text-dark fw-bold mb-1">LOGOUT</p>
+<p class="text-muted small mb-0">Sign out of your account safely.</p>
+</div>
+</a>
+</div>
+</div>
+</div>
+{% endblock %}

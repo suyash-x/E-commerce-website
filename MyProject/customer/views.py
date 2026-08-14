@@ -1,19 +1,20 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect
 from user.models import *
 from django.http import HttpResponse
 from django.contrib import messages
+from django.urls import reverse # <--- ADD THIS IMPORT
 
 # Create your views here.
 def index(request):
     if not request.session.get("email"):
         messages.warning(request, 'Please login to access the dashboard.')
-        return redirect('/user/login/')
+        return redirect(reverse('user:login')) # <--- USE reverse()
     return render(request,'customer/index.html')
 def profile(request):
     user_email=request.session.get("email")
     if not user_email:
         messages.warning(request, 'Please login to view your profile.')
-        return redirect('/user/login/')
+        return redirect(reverse('user:login')) # <--- USE reverse()
 
     try:
         user_profile = tbl_register.objects.get(email=user_email)
@@ -21,8 +22,8 @@ def profile(request):
         # This case is unlikely if session is managed well, but good for safety
         messages.error(request, 'User profile not found. Please login again.')
         if 'email' in request.session:
-            del request.session['email']
-        return redirect('/user/login/')
+            request.session.flush() # Clear session on profile not found
+        return redirect(reverse('user:login')) # <--- USE reverse()
 
     if request.method=="POST":
         user_profile.name = request.POST.get("name", user_profile.name)
@@ -38,8 +39,8 @@ def profile(request):
         request.session['uname'] = user_profile.name
         request.session['upic'] = user_profile.profile_pic.url
 
-        messages.success(request, 'User profile updated successfully.')
-        return redirect('/customer/profile/')
+        messages.success(request, 'Profile updated successfully.')
+        return redirect(reverse('customer:profile')) # <--- USE reverse()
 
     return render(request,'customer/profile.html',{"userinfo": user_profile})
 def logout(request):
@@ -47,7 +48,7 @@ def logout(request):
     if user:
         request.session.flush() # Clears all session data at once
         messages.success(request, 'You have been logged out successfully.')
-    return redirect("/user/index/") # Always redirect to the index page
+    return redirect(reverse('user:index')) # <--- USE reverse()
 
 def products(request):
     return render(request,'customer/products.html')
@@ -57,13 +58,13 @@ def myorder(request):
     user=request.session.get("email")
     if not user:
         messages.warning(request, 'Please login to view your orders.')
-        return redirect('/user/login/')
+        return redirect(reverse('user:login')) # <--- USE reverse()
     data=tbl_order_info.objects.all().filter(userid=user)
     return render(request,'customer/myorder.html',{"data":data})
 def orderdetail(request):
     if not request.session.get("email"):
         messages.warning(request, 'Please login to view order details.')
-        return redirect('/user/login/')
+        return redirect(reverse('user:login')) # <--- USE reverse()
 
     orderid=request.GET.get("oid")
     # Get the main order info object first

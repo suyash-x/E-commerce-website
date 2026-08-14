@@ -26,14 +26,18 @@ TEMPLATE_DIR = BASE_DIR / 'templates'
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-uzqu3*w&bq0l8ki-u&(kq+ejh*^-wx2()kj#hv4gxa8bucg*6j')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# Set DEBUG to False for production. Render automatically sets the RENDER environment variable.
-DEBUG = 'RENDER' not in os.environ
+# Set DEBUG to False in production by setting the environment variable `DEBUG=False`
+# Defaults to True for local development if the variable is not set.
+DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
 ALLOWED_HOSTS = []
 
-RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
-if RENDER_EXTERNAL_HOSTNAME:
-    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+# Add the railway public domain to allowed hosts
+RAILWAY_PUBLIC_DOMAIN = os.environ.get('RAILWAY_PUBLIC_DOMAIN')
+if RAILWAY_PUBLIC_DOMAIN:
+    ALLOWED_HOSTS.append(RAILWAY_PUBLIC_DOMAIN)
+    # Also add to CSRF trusted origins for secure POST requests
+    CSRF_TRUSTED_ORIGINS = [f'https://{RAILWAY_PUBLIC_DOMAIN}']
 
 # Application definition
 

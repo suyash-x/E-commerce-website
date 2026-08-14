@@ -490,7 +490,7 @@ body.bg-color2 {
 
             {% if request.session.email %}
             <a href="{% url 'customer:profile' %}" class="d-flex align-items-center gap-2 text-decoration-none">
-                <img src="/{{request.session.upic}}" class="rounded-circle border border-2 border-warning" style="height:42px; width: 42px; object-fit: cover;" alt="">
+                <img src="/media/{{request.session.upic}}" class="rounded-circle border border-2 border-warning" style="height:42px; width: 42px; object-fit: cover;" alt="">
                 <b class="d-none d-xl-inline text-dark small fw-bold">{{request.session.uname}}</b>
             </a>
             {% else %}
@@ -646,10 +646,10 @@ body.bg-color2 {
             <div class="col-md-2 mb-4">
                 <h4 class="footer-heading text-uppercase text-ligth mb-3">Quick Links</h4>
                 <ul class="list-unstyled">
-                    <li><a href="/user/index/">Home</a></li>
-                    <li><a href="/user/about/">About Us</a></li>
-                    <li><a href="/user/products/">Products</a></li>
-                    <li><a href="/user/contact/">Contact</a></li>
+                    <li><a href="{% url 'user:index' %}">Home</a></li>
+                    <li><a href="{% url 'user:about' %}">About Us</a></li>
+                    <li><a href="{% url 'user:products' %}">Products</a></li>
+                    <li><a href="{% url 'user:contact' %}">Contact</a></li>
                 </ul>
             </div>
             <div class="col-md-3 mb-4 text-ligth">

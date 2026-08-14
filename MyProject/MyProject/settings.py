@@ -82,7 +82,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'MyProject.MyProject.wsgi.application'
+WSGI_APPLICATION = 'MyProject.wsgi.application'
 
 
 # Database
@@ -104,7 +104,7 @@ else:
     }
 
 
-# ROOT_URLCONF = 'MyProject.urls'
+# Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -134,7 +134,7 @@ USE_I18N = True
 
 USE_TZ = True
 
-ROOT_URLCONF = 'MyProject.MyProject.urls'
+ROOT_URLCONF = 'MyProject.urls'
 
 
 # Static files (CSS, JavaScript, Images)

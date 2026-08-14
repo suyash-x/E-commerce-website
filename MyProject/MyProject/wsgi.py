@@ -13,9 +13,6 @@ from pathlib import Path
 
 from django.core.wsgi import get_wsgi_application
 
-# Add the project's root directory to the Python path.
-sys.path.append(str(Path(__file__).resolve().parent.parent.parent))
-
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'MyProject.MyProject.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'MyProject.settings')
 
 application = get_wsgi_application()

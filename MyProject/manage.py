@@ -7,11 +7,7 @@ from pathlib import Path
 
 def main():
     """Run administrative tasks."""
-    # Add the project's root directory to the Python path.
-    # This is the directory that contains the outer 'MyProject' folder.
-    # This makes imports like 'MyProject.MyProject.settings' reliable.
-    sys.path.append(str(Path(__file__).resolve().parent.parent))
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'MyProject.MyProject.settings')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'MyProject.settings')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:

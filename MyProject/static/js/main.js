@@ -334,9 +334,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // --- Initial Page Load Logic for Sticky Toast ---
     function initializeStickyToast() {
-        const cartCount = {{ cart_count|default:0 }};
+        const cartBadge = document.getElementById('cart-count-badge');
+        if (!cartBadge) return;
+
+        const cartCount = parseInt(cartBadge.textContent.trim(), 10) || 0;
+        
         if (cartCount > 0) {
-            const cartImages = JSON.parse(document.getElementById('cart-images-data').textContent);
+            const cartImagesData = document.getElementById('cart-images-data');
+            if (!cartImagesData) return;
+
+            const cartImages = JSON.parse(cartImagesData.textContent);
             const toastData = {
                 cart_count: cartCount,
                 cart_images: cartImages,

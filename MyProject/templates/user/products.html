@@ -23,7 +23,9 @@
 {% for x in categories %}
 <a href="/user/products?cid={{x.id}}" class="text-decoration-none">
 <li class="list-group-item d-flex align-items-center gap-3 py-3 border-light hover-bg">
-<img src="/{{x.category_picture}}" height="40px" width="40px" class="rounded-circle object-fit-cover border shadow-sm">
+{% if x.category_picture %}
+<img src="{{x.category_picture.url}}" height="40px" width="40px" class="rounded-circle object-fit-cover border shadow-sm" alt="{{ x.category_name }}">
+{% endif %}
 <b class="text-dark fs-6">{{x.category_name}}</b>
 </li>
 </a>
@@ -40,7 +42,9 @@
 <b class="badge bg-success text-light position-absolute top-0 start-100 translate-middle rounded-pill shadow-sm" style="font-size: 0.85rem; padding: 0.5em 0.8em; z-index: 5;">
 ₹{{x.product_discount}} OFF</b>
 <div class="text-center py-2">
-<img src="/{{x.product_picture}}" class="card-img-top rounded-3" style="height: 170px; object-fit: contain;">
+{% if x.product_picture %}
+<img src="{{x.product_picture.url}}" class="card-img-top rounded-3" style="height: 170px; object-fit: contain;" alt="{{ x.product_name }}">
+{% endif %}
 </div>
 <div class="card-body px-0">
 <h5 class="card-title fw-bold fs-6 text-dark text-truncate">{{x.product_name}}</h5>

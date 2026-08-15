@@ -17,8 +17,9 @@
                          {% for x in teamdata%}
                         <div class="col-sm-3 p-2 rounded-4">
                             <div class="shadow-lg team rounded-4 text-center">
-                                <img src="/{{x.picture}}" class="img-thumbnail p-2 "
-                                    alt="" srcset="">
+                                {% if x.picture %}
+                                <img src="{{x.picture.url}}" class="img-thumbnail p-2 " alt="{{ x.name }}">
+                                {% endif %}
                                 <b class="text-dark fw-bold fs-5">{{x.name}}</b><br>
                                 <b class="text-dark fw-bold fs-5">{{x.designation}}</b><br>
                                 <i class="fa-brands fa-instagram rounded-circle t"></i>

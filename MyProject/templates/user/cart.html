@@ -33,16 +33,24 @@
 <tbody>
 {% for x in data %}
 <tr class="transition-all" style="transition: background-color 0.2s ease;">
-<th scope="row" class="ps-3 fw-bold">#{{x.pid}}</th>
-<td><img src="/{{x.product_picture}}" height="60px" width="60px" class="rounded-3 object-fit-cover border shadow-sm"></td>
-<td class="fw-bold text-dark">{{x.product_name}}</td>
+{% if x.product %}
+<th scope="row" class="ps-3 fw-bold">#{{x.product.id}}</th>
+<td><img src="{{x.product.product_picture.url}}" height="60px" width="60px" class="rounded-3 object-fit-cover border shadow-sm"></td>
+<td class="fw-bold text-dark">{{x.product.product_name}}</td>
 <td><span class="badge bg-light text-dark border px-2 py-1">{{x.product_quantity}}</span></td>
-<td class="text-muted small">{{x.product_weight}}</td>
-<td>₹{{x.product_price}}</td>
-<td><span class="text-success fw-semibold">₹{{x.discount_price}}</span></td>
+<td class="text-muted small">{{x.product.product_weight}}</td>
+<td>₹{{x.product.product_price}}</td>
+<td><span class="text-success fw-semibold">{{x.product.product_discount}}%</span></td>
 <td class="fw-black text-dark">₹{{x.total_price}}</td>
 <td class="pe-3"><a href="/user/cart?cid={{x.id}}" class="btn btn-sm btn-outline-danger rounded-pill px-3 fw-bold"><i class="fa-solid fa-trash me-1"></i> Remove</a></td>
+{% else %}
+<td colspan="9" class="text-center text-danger p-3">
+<i class="fa-solid fa-triangle-exclamation me-2"></i> This product is no longer available and has been removed from your cart.
+</td>
+{% endif %}
 </tr>
+{% empty %}
+<tr><td colspan="9" class="text-center p-5 text-muted">Your cart is empty.</td></tr>
 {% endfor %}
 </tbody>
 </table>

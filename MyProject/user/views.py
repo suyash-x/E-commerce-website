@@ -18,7 +18,8 @@ def index(request):
     email = request.session.get("email")
     if email:
         cart_items = tbl_cart.objects.filter(userid=email)
-        cart_quantities = {str(item.product.id): item.product_quantity for item in cart_items}
+        # Safely create the dictionary, skipping items where the product has been deleted.
+        cart_quantities = {str(item.product.id): item.product_quantity for item in cart_items if item.product}
 
     md={
         "categories":cdata,
@@ -172,7 +173,8 @@ def products(request):
     email = request.session.get("email")
     if email:
         cart_items = tbl_cart.objects.filter(userid=email)
-        cart_quantities = {str(item.product.id): item.product_quantity for item in cart_items}
+        # Safely create the dictionary, skipping items where the product has been deleted.
+        cart_quantities = {str(item.product.id): item.product_quantity for item in cart_items if item.product}
     
     md={
         "categories":cdata,
@@ -229,12 +231,14 @@ def cart(request):
             )
             # The 'order' variable now holds the tbl_order_info instance.
             for x in cartitem:
-                tbl_order_items.objects.create(
-                    orderid=order,
-                    product=x.product,
-                    product_quantity=x.product_quantity,
-                    total_price=x.total_price,
-                )
+                # Add safety check to ensure product exists before creating order item
+                if x.product:
+                    tbl_order_items.objects.create(
+                        orderid=order,
+                        product=x.product,
+                        product_quantity=x.product_quantity,
+                        total_price=x.total_price,
+                    )
             cartitem.delete()
             ccount=tbl_cart.objects.filter(userid=email).count()
             request.session["cartitem"]=ccount

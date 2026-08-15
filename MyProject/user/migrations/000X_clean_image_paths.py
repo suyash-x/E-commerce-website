@@ -46,7 +46,7 @@ def clean_image_paths(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('user', '000X_previous_migration_name'), # <--- IMPORTANT: Replace '000X_previous_migration_name' with the actual name of the previous migration file in your user app.
+        ('user', '0009_tbl_order_info_order_date'), # Corrected dependency
     ]
 
     operations = [

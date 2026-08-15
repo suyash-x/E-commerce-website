@@ -1,6 +1,6 @@
 import json
 from django.urls import reverse
-from .models import tbl_cart
+from .models import tbl_cart # Ensure tbl_cart is imported
 
 def js_urls(request):
     urls = {

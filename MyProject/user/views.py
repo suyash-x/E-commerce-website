@@ -47,13 +47,19 @@ def update_cart_item(request):
 
     toast_type = "cart_add"
     if quantity > 0:
+        # Safely calculate the price, defaulting None to 0
+        price = product.product_price or 0
+        discount = product.product_discount or 0
+        discounted_price = price - (price * discount / 100)
+        total_price = discounted_price * quantity
+
         # Using update_or_create to handle both adding and updating quantity
         cart_item, created = tbl_cart.objects.update_or_create(
             userid=user,
             product=product,
             defaults={
                 'product_quantity': quantity,
-                'total_price': (product.product_price - (product.product_price * product.product_discount / 100)) * quantity
+                'total_price': total_price
             }
         )
     else:  # quantity is 0, so remove the item
@@ -180,8 +186,19 @@ def cart(request):
     email=request.session.get("email")
     cartitem=tbl_cart.objects.all().filter(userid=email)
     total=0
-    for cart in cartitem:
-        total+=cart.total_price
+    # Recalculate total to ensure data integrity and fix any stale prices
+    for item in cartitem:
+        if item.product:
+            price = item.product.product_price or 0
+            discount = item.product.product_discount or 0
+            discounted_price = price - (price * discount / 100)
+            
+            # Self-heal: Update the item's total_price in the DB if it's incorrect
+            correct_total = discounted_price * item.product_quantity
+            if item.total_price != correct_total:
+                item.total_price = correct_total
+                item.save()
+            total += item.total_price
     orderid="Suyash"+str(randint(1000,9999))
     if cartid is not None:
         item_to_remove = tbl_cart.objects.filter(id=cartid, userid=email).first()

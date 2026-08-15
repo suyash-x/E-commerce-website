@@ -35,7 +35,7 @@
 <tr class="transition-all" style="transition: background-color 0.2s ease;">
 {% if x.product %}
 <th scope="row" class="ps-3 fw-bold">#{{x.product.id}}</th>
-<td><img src="{{x.product.product_picture.url}}" height="60px" width="60px" class="rounded-3 object-fit-cover border shadow-sm"></td>
+<td>{% if x.product.product_picture %}<img src="{{x.product.product_picture.url}}" height="60px" width="60px" class="rounded-3 object-fit-cover border shadow-sm">{% endif %}</td>
 <td class="fw-bold text-dark">{{x.product.product_name}}</td>
 <td><span class="badge bg-light text-dark border px-2 py-1">{{x.product_quantity}}</span></td>
 <td class="text-muted small">{{x.product.product_weight}}</td>

@@ -145,8 +145,10 @@ View Deals
 <div class="card category-card text-center p-3 h-100">
 <a href="/user/products?cid={{x.id}}" class="text-decoration-none text-dark">
 <div class="rounded-circle overflow-hidden mx-auto mb-2 shadow-sm" style="width: 100px; height: 100px; background: #fff;">
-{% if x.category_picture %}
-<img src="{{x.category_picture.url}}" class="w-100 h-100 object-fit-cover" alt="{{ x.category_name }}">
+{% if x.category_picture and x.category_picture.url %}
+<img src="{{ x.category_picture.url }}" class="w-100 h-100 object-fit-cover" alt="{{ x.category_name }}">
+{% else %}
+<div class="w-100 h-100 d-flex align-items-center justify-content-center bg-light text-muted small">No Image</div>
 {% endif %}
 </div>
 <div class="card-body p-0 mt-2">
@@ -181,8 +183,10 @@ View Deals
 <b class="badge bg-danger text-light position-absolute top-0 start-100 translate-middle rounded-pill shadow-sm" style="font-size: 0.85rem; padding: 0.5em 0.8em; z-index: 5;">
 {{x.product_discount}}% OFF</b>
 <div class="text-center py-2">
-{% if x.product_picture %}
-<img src="{{x.product_picture.url}}" class="card-img-top rounded-3" style="height: 180px; object-fit: contain;" alt="{{ x.product_name }}">
+{% if x.product_picture and x.product_picture.url %}
+<img src="{{ x.product_picture.url }}" class="card-img-top rounded-3" style="height: 180px; object-fit: contain;" alt="{{ x.product_name }}">
+{% else %}
+<div class="card-img-top rounded-3 d-flex align-items-center justify-content-center bg-light text-muted" style="height: 180px;">Image not available</div>
 {% endif %}
 </div>
 <div class="card-body px-0">

@@ -17,8 +17,8 @@
 <div class="col-lg-3 col-md-4 col-sm-6">
 <div class="card border-0 shadow-sm p-3 rounded-4 bg-white h-100 gallery-card transition-all" style="transition: transform 0.3s ease, box-shadow 0.3s ease;">
 <div class="overflow-hidden rounded-3 mb-3" style="height: 200px;">
-{% if x.picture %}
-<img src="{{x.picture.url}}" class="w-100 h-100 object-fit-cover rounded-3 transition-scale" style="transition: transform 0.4s ease;" alt="{{ x.title }}">
+{% if x.picture and x.picture.url %}
+<img src="{{ x.picture.url }}" class="w-100 h-100 object-fit-cover rounded-3 transition-scale" style="transition: transform 0.4s ease;" alt="{{ x.title }}">
 {% endif %}
 </div>
 <h5 class="text-center fw-bold text-dark fs-6 mb-0">{{x.title}}</h5>

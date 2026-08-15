@@ -28,15 +28,12 @@ class tbl_productAdmin(admin.ModelAdmin):
 admin.site.register(tbl_product,tbl_productAdmin)
 
 class tbl_cartAdmin(admin.ModelAdmin):
-    list_display=("id","userid","pid","product_name","product_picture","product_price","discount_price","product_quantity","product_weight","total_price")
+    list_display=("id","userid","product","product_quantity","total_price")
 admin.site.register(tbl_cart,tbl_cartAdmin)
 
-class tbl_orderAdmin(admin.ModelAdmin):
-    list_display=("id","userid","pid","product_name","product_picture","product_price","discount_price","product_quantity","product_weight","total_price","status","order_date")
-admin.site.register(tbl_order,tbl_orderAdmin)
 class tbl_order_infoAdmin(admin.ModelAdmin):
     list_display=("userid","orderid","name","mobile","address","status","total_amount","order_date")
 admin.site.register(tbl_order_info,tbl_order_infoAdmin) 
 class tbl_order_itemsAdmin(admin.ModelAdmin):
-    list_display=("orderid","product_name","product_picture","product_price","discount_price","product_quantity","product_weight","total_price")
+    list_display=("orderid","product","product_quantity","total_price")
 admin.site.register(tbl_order_items,tbl_order_itemsAdmin)   

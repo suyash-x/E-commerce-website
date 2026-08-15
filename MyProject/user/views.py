@@ -18,7 +18,7 @@ def index(request):
     email = request.session.get("email")
     if email:
         cart_items = tbl_cart.objects.filter(userid=email)
-        cart_quantities = {str(item.pid): item.product_quantity for item in cart_items}
+        cart_quantities = {str(item.product.id): item.product_quantity for item in cart_items}
 
     md={
         "categories":cdata,
@@ -50,31 +50,21 @@ def update_cart_item(request):
         # Using update_or_create to handle both adding and updating quantity
         cart_item, created = tbl_cart.objects.update_or_create(
             userid=user,
-            pid=product.id,
+            product=product,
             defaults={
-                'product_name': product.product_name,
-                # Ensure product_picture is stored as its URL or a path that can be resolved to URL
-                # If product_picture is a FileField, store its name or the full URL if you have a custom storage
-                # For now, assuming product_picture is a string or can be directly used.
-                # If it's a FileField, you might need product.product_picture.name or product.product_picture.url
-                'product_picture': product.product_picture.url if hasattr(product.product_picture, 'url') else str(product.product_picture),
-                'product_price': product.product_price,
-                'discount_price': product.product_discount,
-                'product_weight': product.product_weight,
                 'product_quantity': quantity,
-                'total_price': product.product_price * quantity
+                'total_price': (product.product_price - (product.product_price * product.product_discount / 100)) * quantity
             }
         )
     else:  # quantity is 0, so remove the item
-        tbl_cart.objects.filter(userid=user, pid=product.id).delete()
+        tbl_cart.objects.filter(userid=user, product=product).delete()
         toast_type = "cart_remove"
 
     # Prepare JSON response for the sticky toast and cart updates
     ccount = tbl_cart.objects.filter(userid=user).count()
     request.session["cartitem"] = ccount
     recent_items = tbl_cart.objects.filter(userid=user).order_by('-id')[:5]
-    # product_picture in tbl_cart is a CharField storing the URL, so no .url is needed.
-    cart_images = [item.product_picture for item in recent_items]
+    cart_images = [item.product.product_picture.url for item in recent_items]
     
     response_data = {
         "type": toast_type,
@@ -168,7 +158,7 @@ def products(request):
     email = request.session.get("email")
     if email:
         cart_items = tbl_cart.objects.filter(userid=email)
-        cart_quantities = {str(item.pid): item.product_quantity for item in cart_items}
+        cart_quantities = {str(item.product.id): item.product_quantity for item in cart_items}
     
     md={
         "categories":cdata,
@@ -193,14 +183,9 @@ def cart(request):
             ccount = tbl_cart.objects.filter(userid=email).count()
             request.session["cartitem"] = ccount
             recent_items = tbl_cart.objects.filter(userid=email).order_by('-id')[:5]
-            # product_picture in tbl_cart is a CharField storing the URL, so no .url is needed.
-            cart_images = [item.product_picture for item in recent_items]
-            toast_data = {
-                "type": "cart_remove",
-                "item_name": item_name,
-                "cart_count": ccount,
-                "cart_images": cart_images
-            }
+            # This logic is now handled by the cart_context processor,
+            # but we can still send a simple message.
+            toast_data = {"type": "cart_remove", "item_name": item_name, "cart_count": ccount}
             messages.error(request, json.dumps(toast_data))
         return redirect(reverse('user:cart'))
     if email:
@@ -218,13 +203,10 @@ def cart(request):
             )
             # The 'order' variable now holds the tbl_order_info instance.
             for x in cartitem:
-                # Ensure product_picture is stored as its URL or a path that can be resolved to URL
                 tbl_order_items.objects.create(
                     orderid=order,
-                    product_name=x.product_name,
-                    product_picture=x.product_picture,
+                    product=x.product,
                     product_quantity=x.product_quantity,
-                    product_weight=x.product_weight,
                     total_price=x.total_price,
                 )
             cartitem.delete()

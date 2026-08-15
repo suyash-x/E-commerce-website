@@ -26,9 +26,11 @@ def cart_context(request):
     if email:
         cart_count = tbl_cart.objects.filter(userid=email).count()
         # Get the URLs of the most recent 5 items for the toast
-        recent_items = tbl_cart.objects.filter(userid=email).order_by('-id')[:5]
-        # The product_picture in tbl_cart is a CharField storing the URL, so no .url is needed.
-        cart_images = [item.product_picture for item in recent_items]
+        recent_items = tbl_cart.objects.filter(userid=email).select_related('product').order_by('-id')[:5]
+        for item in recent_items:
+            # Safely get URL, checking if product and picture exist
+            if item.product and item.product.product_picture:
+                cart_images.append(item.product.product_picture.url)
 
     return {
         'cart_count': cart_count,

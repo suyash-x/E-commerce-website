@@ -48,7 +48,11 @@
 <tr>
 {% if item.product %}
 <td style="width: 80px;">
+{% if item.product.product_picture %}
 <img src="{{ item.product.product_picture.url }}" class="product-image" alt="{{ item.product.product_name }}">
+{% else %}
+<img src="{% static 'images/product_deleted.png' %}" class="product-image" alt="Image not available">
+{% endif %}
 </td>
 <td>
 <p class="fw-bold mb-1 text-dark">{{ item.product.product_name }}</p>

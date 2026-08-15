@@ -26,7 +26,7 @@ aria-controls="offcanvasScrolling" class="text-decoration-none text-light p-2 ro
 {% if request.session.email %}
 <div class="dropdown ms-3">
 <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle p-1 rounded-pill px-3" style="background: rgba(255,255,255,0.08);" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-<img src="{{request.session.upic}}" alt="" width="36" height="36" class="rounded-circle border border-2 border-purple object-fit-cover">
+<img src="{{ request.session.upic|default:'/static/images/default_avatar.png' }}" alt="User Profile" width="36" height="36" class="rounded-circle border border-2 border-purple object-fit-cover">
 <span class="d-none d-sm-inline mx-2 fw-semibold">{{request.session.uname}}</span>
 </a>
 <ul class="dropdown-menu dropdown-menu-dark text-small shadow p-2 rounded-3 border-0 mt-2" style="background: var(--navy-light);" aria-labelledby="dropdownUser1" >
@@ -86,7 +86,7 @@ aria-controls="offcanvasScrolling" class="text-decoration-none text-light p-2 ro
 tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel" style="background-color: var(--navy-dark);">
 <div class="offcanvas-header border-bottom border-secondary px-4 py-4">
 <div class="d-flex align-items-center">
-<img src="{{request.session.upic}}" alt="" width="52" height="52" class="rounded-circle me-3 border border-2 border-purple object-fit-cover shadow-sm">
+<img src="{{ request.session.upic|default:'/static/images/default_avatar.png' }}" alt="User Profile" width="52" height="52" class="rounded-circle me-3 border border-2 border-purple object-fit-cover shadow-sm">
 <div>
 <h5 class="offcanvas-title fw-bold mb-0 text-white" id="offcanvasScrollingLabel">{{request.session.uname}}</h5>
 <small class="text-white-50 text-truncate d-inline-block" style="max-width: 180px;">{{request.session.email}}</small>

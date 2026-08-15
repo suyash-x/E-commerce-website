@@ -189,16 +189,19 @@ def cart(request):
     # Recalculate total to ensure data integrity and fix any stale prices
     for item in cartitem:
         if item.product:
-            price = item.product.product_price or 0
-            discount = item.product.product_discount or 0
-            discounted_price = price - (price * discount / 100)
+            price = item.product.product_price if item.product.product_price is not None else 0
+            discount = item.product.product_discount if item.product.product_discount is not None else 0
+            discounted_price = price - (price * (discount / 100))
             
             # Self-heal: Update the item's total_price in the DB if it's incorrect
-            correct_total = discounted_price * item.product_quantity
+            correct_total = discounted_price * (item.product_quantity or 0)
             if item.total_price != correct_total:
                 item.total_price = correct_total
                 item.save()
             total += item.total_price
+        else:
+            # If product is deleted, ensure its contribution to total is zero
+            item.delete() # Self-heal: remove cart items that point to nothing
     orderid="Suyash"+str(randint(1000,9999))
     if cartid is not None:
         item_to_remove = tbl_cart.objects.filter(id=cartid, userid=email).first()

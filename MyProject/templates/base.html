@@ -79,7 +79,7 @@
 
             {% if request.session.email %}
             <a href="{% url 'customer:profile' %}" class="d-flex align-items-center gap-2 text-decoration-none">
-                <img src="{{request.session.upic}}" class="rounded-circle border border-2 border-warning" style="height:42px; width: 42px; object-fit: cover;" alt="">
+                <img src="{{ request.session.upic|default:'/static/images/default_avatar.png' }}" class="rounded-circle border border-2 border-warning" style="height:42px; width: 42px; object-fit: cover;" alt="User Profile">
                 <b class="d-none d-xl-inline text-dark small fw-bold">{{request.session.uname}}</b>
             </a>
             {% else %}

@@ -1,44 +1,7 @@
 {% extends 'base1.html' %}
 {% load static %}
 {% block xyz %}
-<style>
-.order-history-card {
-    background: white;
-    border-radius: 1.25rem;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.04);
-    border: none;
-    border-left: 5px solid #7C3AED;
-    margin-bottom: 1.5rem;
-    transition: all 0.3s ease;
-}
-.order-history-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(124, 58, 237, 0.1) !important;
-}
-.order-history-card .card-header {
-    background-color: #F8FAFC;
-    border-bottom: 1px solid #E2E8F0;
-    font-weight: 600;
-    border-top-right-radius: 1.25rem !important;
-}
-.order-history-card .card-footer {
-    background-color: #F8FAFC;
-}
-.btn-violet {
-    background-color: #7C3AED;
-    color: #fff;
-    border-radius: 50rem;
-    padding: 0.5rem 1.25rem;
-    font-weight: 600;
-    border: none;
-    transition: all 0.25s ease;
-}
-.btn-violet:hover {
-    background-color: #6D28D9;
-    color: #fff;
-    transform: scale(1.03);
-}
-</style>
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
 <div class="container py-5">
 <div class="row mb-4">
 <div class="col-12">

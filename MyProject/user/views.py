@@ -4,6 +4,8 @@ from .models import *
 from random import *
 from django.contrib import messages
 from django.http import JsonResponse
+from django.db.models import F # Import F object for database operations
+from django.urls import reverse # Add this import
 from django.views.decorators.http import require_POST
 import json
 # Create your views here.
@@ -21,7 +23,7 @@ def index(request):
     md={
         "categories":cdata,
         "product":pdata,
-        "cart_quantities": cart_quantities
+        "cart_quantities": cart_quantities,
     }
     return render(request,"user/index.html",md)
 
@@ -46,12 +48,16 @@ def update_cart_item(request):
     toast_type = "cart_add"
     if quantity > 0:
         # Using update_or_create to handle both adding and updating quantity
-        tbl_cart.objects.update_or_create(
+        cart_item, created = tbl_cart.objects.update_or_create(
             userid=user,
             pid=product.id,
             defaults={
                 'product_name': product.product_name,
-                'product_picture': product.product_picture,
+                # Ensure product_picture is stored as its URL or a path that can be resolved to URL
+                # If product_picture is a FileField, store its name or the full URL if you have a custom storage
+                # For now, assuming product_picture is a string or can be directly used.
+                # If it's a FileField, you might need product.product_picture.name or product.product_picture.url
+                'product_picture': product.product_picture.url if hasattr(product.product_picture, 'url') else str(product.product_picture),
                 'product_price': product.product_price,
                 'discount_price': product.product_discount,
                 'product_weight': product.product_weight,
@@ -85,8 +91,8 @@ def contact(request):
         c=request.POST.get("email")
         d=request.POST.get("message")
         tblcontact(name=a,mobile=b,email=c,message=d).save()
-        messages.info(request, 'Thank you for contacting us. We will get back to you shortly.')
-        return redirect('/user/contact/')
+        messages.success(request, 'Thank you for contacting us. We will get back to you shortly.') # Changed to success for consistency
+        return redirect(reverse('user:contact'))
     mydict={}
     return render(request,"user/contact.html",mydict)
 
@@ -103,10 +109,10 @@ def team(request):
     mydict={"teamdata":data}
     return render(request,"user/team.html",mydict)
 def profile(request):
-    return(render(request,"user/profile.html"))
+    return(render(request,"customer/profile.html")) # Corrected template path
     
 def uprofile(request):
-    return(render(request,"uprofile.html"))
+    return(render(request,"user/uprofile.html")) # Corrected template path
     
 def registration(request):
     if request.method=="POST":
@@ -119,11 +125,11 @@ def registration(request):
       # Use .exists() for a more efficient database query
       if tbl_register.objects.filter(email=Email).exists():
         messages.warning(request, 'You are already registered. Please login.')
-        return redirect('/user/login/')
+        return redirect(reverse('user:login'))
       else:
         tbl_register(name=Name,mobile=Mobile,email=Email,password=Password,address=Address,profile_pic=ppic).save()
         messages.success(request, 'You are registered successfully. Please login.')
-        return redirect('/user/login/')
+        return redirect(reverse('user:login'))
     return render(request,'user/register.html')
 
 def login(request):
@@ -138,7 +144,7 @@ def login(request):
             ccount=tbl_cart.objects.filter(userid=Email).count()
             request.session["cartitem"]=ccount
             messages.success(request, 'Logged in successfully.')
-            return redirect('/customer/index/')
+            return redirect(reverse('customer:index'))
         else:
             return render(request,"user/login.html",{"msg":"Invalid id or pass"})
     
@@ -208,8 +214,7 @@ def cart(request):
             )
             # The 'order' variable now holds the tbl_order_info instance.
             for x in cartitem:
-                # FIX 1: Corrected model name from tbl_order_item to tbl_order_items
-                # FIX 2: Passed the 'order' instance to the ForeignKey field.
+                # Ensure product_picture is stored as its URL or a path that can be resolved to URL
                 tbl_order_items.objects.create(
                     orderid=order,
                     product_name=x.product_name,
@@ -221,7 +226,7 @@ def cart(request):
             cartitem.delete()
             ccount=tbl_cart.objects.filter(userid=email).count()
             request.session["cartitem"]=ccount
-            messages.success(request, 'Order placed successfully.')
-            return redirect('/user/cart/')
+            messages.success(request, 'Order placed successfully.') # This message is handled by JS to show a modal and redirect
+            return redirect(reverse('user:cart')) # Redirect to cart page after order
 
     return render(request,"user/cart.html",{"data":cartitem,"payable_amount":total})

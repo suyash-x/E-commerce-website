@@ -1,6 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
     // --- Modal Elements ---
     const modal = document.getElementById('redirect-modal');
+    // Get URLs from Django context
+    const djangoUrlsElement = document.getElementById('django-urls-data');
+    const djangoUrls = djangoUrlsElement ? JSON.parse(djangoUrlsElement.textContent) : {};
+
     const modalTitle = document.getElementById('modal-title');
     const modalMessage = document.getElementById('modal-message');
     const modalCountdown = document.getElementById('modal-countdown');
@@ -15,9 +19,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const imagesToDisplay = toastData.cart_images || [];
 
         if (imagesToDisplay.length > 0) {
-            // Reverse for stacking effect (oldest item at the bottom of the visual stack)
+            // Reverse for stacking effect (oldest item at the bottom of the visual stack).
             imagesToDisplay.reverse().slice(0, 5).forEach(imgSrc => {
-                imagesHTML += `<img src="/media/${imgSrc}">`;
+                imagesHTML += `<img src="${imgSrc}">`; // Use the full URL directly
             });
         } else if (toastData.cart_count > 0) {
             imagesHTML = `<div class="toast-icon-wrap"><i class="fa-solid fa-shopping-cart"></i></div>`;
@@ -123,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 // Redirect after 2 seconds
                 setTimeout(() => {
-                    window.location.href = '/user/products/';
+                    window.location.href = djangoUrls.userProductsUrl || '/user/products/'; // Use dynamic URL
                 }, 2000);
                 return; // Message handled, skip to next
             }
@@ -134,21 +138,21 @@ document.addEventListener('DOMContentLoaded', function() {
                     type: 'success',
                     title: 'Login Successful!',
                     message: 'Welcome back. You are now logged in.',
-                    redirect: '/customer/index/'
+                    redirect: djangoUrls.customerIndexUrl || '/customer/index/'
                 };
             } else if (messageText === 'You have been logged out successfully.') {
                 modalConfig = {
                     type: 'success',
                     title: 'Logout Successful!',
                     message: 'You have been securely signed out.',
-                    redirect: '/user/index/'
+                    redirect: djangoUrls.userIndexUrl || '/user/index/'
                 };
             } else if (messageText.startsWith('Please login')) {
                 modalConfig = {
                     type: 'warning',
                     title: 'Authentication Required',
                     message: messageText,
-                    redirect: '/user/login/'
+                    redirect: djangoUrls.userLoginUrl || '/user/login/'
                 };
             }
 
@@ -180,7 +184,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         window.location.href = modalConfig.redirect;
                     }
                 }, 1000);
-                setTimeout(() => { window.location.href = modalConfig.redirect; }, 3100);
+                setTimeout(() => { window.location.href = modalConfig.redirect; }, 3100); // Fallback redirect
 
             } else {
                 // --- Process as a Banner ---
@@ -217,7 +221,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Core AJAX function to update cart
     async function updateCartItem(productId, quantity) {
         try {
-            const response = await fetch('/user/update_cart_item/', {
+            const response = await fetch(djangoUrls.updateCartItemUrl || '/user/update_cart_item/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -238,7 +242,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     modalIconContainer.innerHTML = '<i class="fa-solid fa-exclamation-circle icon-warning"></i>';
                     modal.style.display = 'flex';
                     setTimeout(() => modal.classList.add('show'), 10);
-                    setTimeout(() => { window.location.href = '/user/login/'; }, 3000);
+                    setTimeout(() => { window.location.href = djangoUrls.userLoginUrl || '/user/login/'; }, 3000);
                     return null; // Gracefully exit after handling 401
                 }
                 // For other errors, throw to be caught and logged

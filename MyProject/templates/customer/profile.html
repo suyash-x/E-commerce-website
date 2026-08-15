@@ -1,54 +1,7 @@
 {% extends 'base1.html' %}
 {% load static %}
 {% block xyz %}
-<style>
-.profile-card {
-    background: white;
-    border-radius: 1.25rem;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.04);
-    border: none;
-}
-.profile-header-banner {
-    background: linear-gradient(135deg, #0A1628 0%, #7C3AED 100%);
-    height: 120px;
-    border-radius: 1.25rem 1.25rem 0 0;
-}
-.profile-pic-wrapper {
-    position: relative;
-    width: 130px;
-    height: 130px;
-    margin: -65px auto 20px auto;
-    border-radius: 50%;
-    border: 4px solid white;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-}
-.profile-pic {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 50%;
-}
-.info-item {
-    color: #64748B;
-}
-.info-item i {
-    color: #7C3AED;
-}
-.btn-violet {
-    background-color: #7C3AED;
-    color: #fff;
-    border-radius: 50rem;
-    padding: 0.75rem 1.5rem;
-    font-weight: 600;
-    border: none;
-    transition: all 0.25s ease;
-}
-.btn-violet:hover {
-    background-color: #6D28D9;
-    color: #fff;
-    transform: translateY(-2px);
-}
-</style>
+<link rel="stylesheet" href="{% static 'css/profile_pages.css' %}">
 <div class="container py-5">
 <div class="row g-4">
 <div class="col-lg-4">

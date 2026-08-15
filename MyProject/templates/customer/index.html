@@ -1,47 +1,7 @@
 {% extends 'base1.html' %}
 {% load static %}
 {% block xyz %}
-<style>
-.dashboard-card {
-    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    border: none;
-    border-radius: 1.25rem;
-    background: #ffffff;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
-}
-.dashboard-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 35px rgba(124, 58, 237, 0.12) !important;
-}
-.dash-icon {
-    font-size: 2.2rem;
-    width: 76px;
-    height: 76px;
-    background-color: #F4F5F7;
-    color: #7C3AED;
-    border-radius: 50%;
-    margin-bottom: 1.25rem;
-    transition: all 0.4s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
-}
-.dashboard-card:hover .dash-icon {
-    background-color: #7C3AED;
-    color: #ffffff;
-    transform: rotate(8deg) scale(1.1);
-    box-shadow: 0 8px 20px rgba(124, 58, 237, 0.3);
-}
-.welcome-header {
-    background: linear-gradient(135deg, #0A1628 0%, #7C3AED 100%);
-    color: white;
-    padding: 3.5rem 2rem;
-    border-radius: 1.5rem;
-    margin-bottom: 3rem;
-    box-shadow: 0 15px 35px rgba(10, 22, 40, 0.15);
-}
-</style>
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
 <div class="container py-5">
 <div class="row">
 <div class="col-lg-10 mx-auto">

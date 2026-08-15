@@ -13,8 +13,8 @@
 <h3 class="fw-bold text-dark mb-2">Ready to Leave?</h3>
 <p class="text-muted mb-4">You have been successfully logged in. Click below to sign out of your Zeva customer session.</p>
 <div class="d-grid gap-3">
-<a href="/customer/logout/" class="btn btn-violet py-3 fw-bold shadow-sm" style="background: #7C3AED; color: #fff; border-radius: 50rem;">Logout Now</a>
-<a href="/user/index/" class="text-decoration-none text-muted fw-semibold small">← Back to Storefront</a>
+<a href="{% url 'customer:logout' %}" class="btn btn-violet py-3 fw-bold shadow-sm" style="background: #7C3AED; color: #fff; border-radius: 50rem;">Logout Now</a>
+<a href="{% url 'user:index' %}" class="text-decoration-none text-muted fw-semibold small">← Back to Storefront</a>
 </div>
 </div>
 </div>

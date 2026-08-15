@@ -80,6 +80,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'user.context_processors.js_urls', # Add this line
                 'user.context_processors.cart_context',
             ],
         },
@@ -148,5 +149,9 @@ STATICFILES_DIRS=[STATIC_DIR]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+# Media files (user-uploaded content)
+# IMPORTANT: In production, these files should be served from a cloud storage solution (e.g., S3).
+# The current setup is for local development and will NOT work for persistent storage on Railway.
+# See previous recommendations for setting up S3.
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'

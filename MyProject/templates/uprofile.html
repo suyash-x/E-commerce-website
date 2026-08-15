@@ -1,71 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block xyz %}
-<style>
-.profile-header {
-    background: linear-gradient(135deg, #0F172A 0%, #3B0764 100%);
-    padding: 5rem 0;
-    color: white;
-    border-bottom: 4px solid #7C3AED;
-}
-.profile-avatar {
-    width: 170px;
-    height: 170px;
-    border-radius: 50%;
-    border: 5px solid #7C3AED;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
-    object-fit: cover;
-}
-.social-links a {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 48px;
-    height: 48px;
-    background: rgba(255,255,255,0.1);
-    color: #fff;
-    border-radius: 50%;
-    font-size: 1.3rem;
-    margin: 0 0.5rem;
-    transition: all 0.3s ease;
-}
-.social-links a:hover {
-    background: #7C3AED;
-    color: #fff;
-    transform: translateY(-4px) scale(1.1);
-}
-.section-card {
-    background: #fff;
-    border-radius: 20px;
-    padding: 2.5rem;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    margin-bottom: 2rem;
-    border: 1px solid rgba(0,0,0,0.04);
-}
-.skill-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem 1.5rem;
-    border: 1px solid #E2E8F0;
-    border-radius: 16px;
-    transition: all 0.3s ease;
-    background: #F8FAFC;
-    height: 100%;
-}
-.skill-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 15px 30px rgba(124, 58, 237, 0.1);
-    border-color: #7C3AED;
-    background: #fff;
-}
-.skill-icon {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    color: #7C3AED;
-}
-</style>
+<link rel="stylesheet" href="{% static 'css/profile_pages.css' %}">
 
 <div class="profile-header text-center">
 <div class="container">

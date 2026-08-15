@@ -544,6 +544,7 @@ body.bg-color2 {
 <a href="/user/cart/" id="cart-toast-link" class="cart-toast text-decoration-none" style="display: none;">
     <!-- Content will be injected by JS -->
 </a>
+{{ js_urls|json_script:"django-urls-data" }}
 {{ cart_images_json|json_script:"cart-images-data" }}
 <!-- User, please create a 'sounds' folder in 'static' and add your sound file here, e.g., /static/sounds/success.mp3 -->
 <audio id="order-success-sound" src="{% static 'sounds/tu-dung.mp3' %}" preload="auto"></audio>

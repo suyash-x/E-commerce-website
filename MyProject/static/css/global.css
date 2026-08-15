@@ -1,0 +1,257 @@
+/* --- Global Styles & Variables --- */
+:root {
+    /* Main Site Colors */
+    --bg-main: #F9F9FB;
+    --bg-card: #FFFFFF;
+    --text-main: #1A1A1A;
+    --accent-yellow: #FFD600;
+    --accent-coral: #FF6B6B;
+    --accent-mint: #00C896;
+    --charcoal: #121212;
+    --charcoal-light: #1E1E1E;
+
+    /* Dashboard Colors */
+    --navy-dark: #0A1628;
+    --navy-light: #1E293B;
+    --violet-main: #7C3AED;
+    --violet-hover: #6D28D9;
+    --lavender-bg: #F4F5F7;
+}
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-main); /* Default for main site */
+    color: var(--text-main);
+}
+
+/* --- Notification Banner --- */
+#notification-banner-container {
+    width: 100%;
+    overflow: hidden;
+}
+.notification-banner {
+    background-color: #28a745; /* Solid green */
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    padding: 1rem;
+    transform: translateY(-100%);
+    opacity: 0;
+    transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+}
+.notification-banner.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+.notification-banner.warning {
+    background-color: #ffc107; /* Amber/Yellow */
+    color: #121212; /* Dark text for better contrast */
+}
+.notification-banner.error {
+    background-color: #dc3545; /* Solid red */
+    color: white;
+}
+.notification-banner.info {
+    background-color: #0dcaf0; /* Cyan/Info Blue */
+    color: white;
+}
+
+/* --- Redirect Modal --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(18, 18, 18, 0.6); /* Darker overlay for main site */
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1060; /* Higher than navbar */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.modal-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+.modal-card {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 1.5rem;
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+.modal-overlay.show .modal-card {
+    transform: scale(1);
+}
+#modal-icon-container {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+.icon-success { color: #28a745; }
+.icon-warning { color: #dc3545; }
+
+/* --- Order Success Modal --- */
+.success-checkmark {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: block;
+  stroke-width: 3; /* Adjusted for better visibility */
+  stroke: #fff;
+  stroke-miterlimit: 10;
+  box-shadow: inset 0px 0px 0px #28a745;
+  animation: fill_anim .4s ease-in-out .4s forwards, scale_anim .3s ease-in-out .9s both;
+  margin: 0 auto 20px auto;
+}
+.success-checkmark__circle {
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  stroke-width: 3;
+  stroke-miterlimit: 10;
+  stroke: #28a745;
+  fill: #fff;
+  animation: stroke_anim 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+.success-checkmark__check {
+  transform-origin: 50% 50%;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: stroke_anim 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+}
+@keyframes stroke_anim {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes scale_anim {
+  0%, 100% { transform: none; }
+  50% { transform: scale3d(1.1, 1.1, 1); }
+}
+@keyframes fill_anim {
+  100% {
+    box-shadow: inset 0px 0px 0px 40px #28a745;
+  }
+}
+
+/* --- Cart Toast Notification --- */
+#cart-toast-link {
+    position: fixed;
+    bottom: 20px; /* Position from bottom */
+    left: 50%;
+    transform: translateX(-50%) translateY(150%); /* Start off-screen at the bottom */
+    width: 90%;
+    max-width: 450px;
+    background-color: var(--bg-card);
+    border-radius: 1.5rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    z-index: 1056; /* Above navbar is 1030, modal is 1060 */
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    border: 1px solid rgba(0,0,0,0.05);
+    display: block;
+    cursor: pointer;
+}
+#cart-toast-link.show {
+    transform: translateX(-50%) translateY(0);
+}
+#cart-toast-link .toast-body {
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+}
+#cart-toast-link .toast-images {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+#cart-toast-link .toast-images img {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    object-fit: cover;
+    border: 2px solid #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+/* Stacking effect for images */
+#cart-toast-link .toast-images img:not(:first-child) {
+    margin-left: -24px;
+}
+#cart-toast-link .toast-text {
+    margin-left: 1rem;
+    color: var(--text-main);
+    text-align: left;
+}
+#cart-toast-link .toast-text strong {
+    color: var(--charcoal);
+    font-weight: 800;
+}
+#cart-toast-link .toast-icon-wrap {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f1f1f1;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+#cart-toast-link.cart-add .toast-icon-wrap {
+    color: var(--accent-mint);
+    background-color: #E6FFFA;
+}
+#cart-toast-link.cart-remove .toast-icon-wrap {
+    color: var(--accent-coral);
+    background-color: #FFF5F5;
+}
+
+/* --- Common Button Styles --- */
+.btn-violet {
+    background-color: var(--violet-main);
+    color: #fff;
+    border-radius: 50rem;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    border: none;
+    transition: all 0.25s ease;
+}
+.btn-violet:hover {
+    background-color: var(--violet-hover);
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+/* --- Form Controls --- */
+.form-control {
+    border-radius: 50rem !important;
+    padding: 0.75rem 1.25rem !important;
+    border: 2px solid #E2E8F0 !important;
+}
+.form-control:focus {
+    border-color: var(--accent-yellow) !important;
+    box-shadow: 0 0 0 3px rgba(255, 214, 0, 0.2) !important;
+}
+
+/* Additional component hooks */
+.bg-color1 { background: var(--charcoal); }
+.bg-color2 { background-color: var(--bg-main) !important; } /* Ensure main site body uses this */
+.bg-color4 { background: var(--charcoal); }
+.text-color1 { color: #ffffff !important; }
+.text-color2 { color: var(--accent-coral) !important; }
+.text-color3 { color: var(--accent-mint) !important; }
+
+/* Cart and profile badges */
+.badge-cart {
+    background-color: var(--accent-coral) !important;
+    border-radius: 50rem;
+    padding: 0.35em 0.65em;
+}

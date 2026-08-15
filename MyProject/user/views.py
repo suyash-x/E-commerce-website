@@ -72,8 +72,9 @@ def update_cart_item(request):
     # Prepare JSON response for the sticky toast and cart updates
     ccount = tbl_cart.objects.filter(userid=user).count()
     request.session["cartitem"] = ccount
-    cart_items = tbl_cart.objects.filter(userid=user).order_by('-id')[:5]
-    cart_images = [item.product_picture.url for item in cart_items]
+    recent_items = tbl_cart.objects.filter(userid=user).order_by('-id')[:5]
+    # product_picture in tbl_cart is a CharField storing the URL, so no .url is needed.
+    cart_images = [item.product_picture for item in recent_items]
     
     response_data = {
         "type": toast_type,
@@ -191,8 +192,9 @@ def cart(request):
             item_to_remove.delete()
             ccount = tbl_cart.objects.filter(userid=email).count()
             request.session["cartitem"] = ccount
-            cart_items = tbl_cart.objects.filter(userid=email).order_by('-id')[:5]
-            cart_images = [item.product_picture.url for item in cart_items]
+            recent_items = tbl_cart.objects.filter(userid=email).order_by('-id')[:5]
+            # product_picture in tbl_cart is a CharField storing the URL, so no .url is needed.
+            cart_images = [item.product_picture for item in recent_items]
             toast_data = {
                 "type": "cart_remove",
                 "item_name": item_name,

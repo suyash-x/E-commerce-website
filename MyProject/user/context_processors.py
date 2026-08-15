@@ -1,5 +1,6 @@
 import json
 from django.urls import reverse
+from .models import tbl_cart
 
 def js_urls(request):
     urls = {
@@ -17,3 +18,19 @@ def js_urls(request):
         'userProfileUrl': reverse('user:uprofile'), # Add this for the footer link
     }
     return {'js_urls': json.dumps(urls)}
+
+def cart_context(request):
+    cart_count = 0
+    cart_images = []
+    email = request.session.get("email")
+    if email:
+        cart_count = tbl_cart.objects.filter(userid=email).count()
+        # Get the URLs of the most recent 5 items for the toast
+        recent_items = tbl_cart.objects.filter(userid=email).order_by('-id')[:5]
+        # The product_picture in tbl_cart is a CharField storing the URL, so no .url is needed.
+        cart_images = [item.product_picture for item in recent_items]
+
+    return {
+        'cart_count': cart_count,
+        'cart_images_json': json.dumps(cart_images)
+    }

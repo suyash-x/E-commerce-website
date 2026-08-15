@@ -37,7 +37,11 @@ def profile(request):
 
         # Update session data to reflect changes immediately
         request.session['uname'] = user_profile.name
-        request.session['upic'] = user_profile.profile_pic.url
+        # Safely get profile picture URL, provide a default if it doesn't exist
+        if user_profile.profile_pic:
+            request.session['upic'] = user_profile.profile_pic.url
+        else:
+            request.session['upic'] = "/static/images/default_avatar.png"
 
         messages.success(request, 'Profile updated successfully.')
         return redirect(reverse('customer:profile')) # <--- USE reverse()

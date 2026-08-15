@@ -64,7 +64,11 @@ def update_cart_item(request):
     ccount = tbl_cart.objects.filter(userid=user).count()
     request.session["cartitem"] = ccount
     recent_items = tbl_cart.objects.filter(userid=user).order_by('-id')[:5]
-    cart_images = [item.product.product_picture.url for item in recent_items]
+    cart_images = []
+    for item in recent_items:
+        # Safely get URL, checking if product and picture exist
+        if item.product and item.product.product_picture:
+            cart_images.append(item.product.product_picture.url)
     
     response_data = {
         "type": toast_type,
@@ -132,7 +136,11 @@ def login(request):
         if x:
             request.session["email"]=str(x.email)
             request.session["uname"]=str(x.name)
-            request.session["upic"]=x.profile_pic.url
+            # Safely get profile picture URL, provide a default if it doesn't exist
+            if x.profile_pic:
+                request.session["upic"] = x.profile_pic.url
+            else:
+                request.session["upic"] = "/static/images/default_avatar.png"
             ccount=tbl_cart.objects.filter(userid=Email).count()
             request.session["cartitem"]=ccount
             messages.success(request, 'Logged in successfully.')
@@ -178,13 +186,11 @@ def cart(request):
     if cartid is not None:
         item_to_remove = tbl_cart.objects.filter(id=cartid, userid=email).first()
         if item_to_remove:
-            item_name = item_to_remove.product_name
+            item_name = item_to_remove.product.product_name if item_to_remove.product else "Deleted Product"
             item_to_remove.delete()
             ccount = tbl_cart.objects.filter(userid=email).count()
             request.session["cartitem"] = ccount
-            recent_items = tbl_cart.objects.filter(userid=email).order_by('-id')[:5]
-            # This logic is now handled by the cart_context processor,
-            # but we can still send a simple message.
+            # This simple message is handled by the frontend JavaScript
             toast_data = {"type": "cart_remove", "item_name": item_name, "cart_count": ccount}
             messages.error(request, json.dumps(toast_data))
         return redirect(reverse('user:cart'))

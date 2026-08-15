@@ -46,13 +46,23 @@
 <tbody>
 {% for item in items %}
 <tr>
+{% if item.product %}
 <td style="width: 80px;">
-<img src="{{item.product_picture}}" class="product-image" alt="{{item.product_name}}">
+<img src="{{ item.product.product_picture.url }}" class="product-image" alt="{{ item.product.product_name }}">
 </td>
 <td>
-<p class="fw-bold mb-1 text-dark">{{item.product_name}}</p>
-<small class="text-muted">{{item.product_weight}}</small>
+<p class="fw-bold mb-1 text-dark">{{ item.product.product_name }}</p>
+<small class="text-muted">{{ item.product.product_weight }}</small>
 </td>
+{% else %}
+<td style="width: 80px;">
+<img src="{% static 'images/product_deleted.png' %}" class="product-image" alt="Product no longer available">
+</td>
+<td>
+<p class="fw-bold mb-1 text-dark">Product no longer available</p>
+<small class="text-muted">N/A</small>
+</td>
+{% endif %}
 <td class="text-center">
 <span class="badge bg-light text-dark border px-2 py-1">Qty: {{item.product_quantity}}</span>
 </td>

@@ -72,13 +72,14 @@ def update_cart_item(request):
     # Prepare JSON response for the sticky toast and cart updates
     ccount = tbl_cart.objects.filter(userid=user).count()
     request.session["cartitem"] = ccount
-    cart_items_for_toast = list(tbl_cart.objects.filter(userid=user).order_by('-id').values('product_picture')[:5])
+    cart_items = tbl_cart.objects.filter(userid=user).order_by('-id')[:5]
+    cart_images = [item.product_picture.url for item in cart_items]
     
     response_data = {
         "type": toast_type,
         "item_name": product.product_name,
         "cart_count": ccount,
-        "cart_images": [item['product_picture'] for item in cart_items_for_toast],
+        "cart_images": cart_images,
         "status": "success"
     }
     
@@ -190,15 +191,16 @@ def cart(request):
             item_to_remove.delete()
             ccount = tbl_cart.objects.filter(userid=email).count()
             request.session["cartitem"] = ccount
-            cart_items_for_toast = list(tbl_cart.objects.filter(userid=email).order_by('-id').values('product_picture')[:5])
+            cart_items = tbl_cart.objects.filter(userid=email).order_by('-id')[:5]
+            cart_images = [item.product_picture.url for item in cart_items]
             toast_data = {
                 "type": "cart_remove",
                 "item_name": item_name,
                 "cart_count": ccount,
-                "cart_images": [item['product_picture'] for item in cart_items_for_toast]
+                "cart_images": cart_images
             }
             messages.error(request, json.dumps(toast_data))
-        return redirect('/user/cart/')
+        return redirect(reverse('user:cart'))
     if email:
         if request.method=="POST":
             name=request.POST.get("name")

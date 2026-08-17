@@ -55,7 +55,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'user',
     'customer',
-    'storages',
 ]
 
 MIDDLEWARE = [
@@ -151,29 +150,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Media files (user-uploaded content)
-# IMPORTANT: In production, these files should be served from a cloud storage solution (e.g., S3).
-# The current setup is for local development and will NOT work for persistent storage on Railway.
-# See previous recommendations for setting up S3.
+# Media files (user-uploaded content)
 MEDIA_URL = '/media/'
-
-if DEBUG:
-    # Local development media settings
-    MEDIA_ROOT = BASE_DIR / 'media'
-else:
-    # Production Google Cloud Storage settings
-    GS_BUCKET_NAME = os.environ.get('GS_BUCKET_NAME')
-    GS_PROJECT_ID = os.environ.get('GS_PROJECT_ID')
-    GS_CREDENTIALS_JSON_CONTENT = os.environ.get('GS_CREDENTIALS_JSON')
-
-    if GS_CREDENTIALS_JSON_CONTENT:
-        import tempfile
-        import json
-        # Create a temporary file to hold the JSON credentials
-        creds_file = tempfile.NamedTemporaryFile(mode='w+', delete=False)
-        creds_file.write(GS_CREDENTIALS_JSON_CONTENT)
-        creds_file.flush()
-        # Set the environment variable for the library to find the credentials
-        os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = creds_file.name
-
-    DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
-    MEDIA_URL = f'https://storage.googleapis.com/{GS_BUCKET_NAME}/media/'
+MEDIA_ROOT = BASE_DIR / 'media'

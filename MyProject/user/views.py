@@ -115,7 +115,7 @@ def profile(request):
     return(render(request,"customer/profile.html")) # Corrected template path
     
 def uprofile(request):
-    return(render(request,"user/uprofile.html")) # Corrected template path
+    return(render(request,"uprofile.html")) # Corrected template path
     
 def registration(request):
     if request.method=="POST":
